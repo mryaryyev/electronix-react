@@ -1,8 +1,10 @@
 import { Link, Route, Routes } from "react-router-dom"
-import { About } from "./screens/About"
-import { Users } from "./screens/Users"
 import "../css/app.css"
-import { Container } from "@mui/material"
+import { HomePage } from "./screens/homePage"
+import { ProductsPage } from "./screens/productsPage"
+import { OrdersPage } from "./screens/ordersPage"
+import { UserPage } from "./screens/userPage"
+import { HelpPage } from "./screens/helpPage"
 
 export const App = () => {
   return (
@@ -10,26 +12,30 @@ export const App = () => {
       <nav>
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/">HomePage</Link>
           </li>
           <li>
-            <Link to="/about">About</Link>
+            <Link to="/products">ProductsPage</Link>
           </li>
           <li>
-            <Link to="/users">Users</Link>
+            <Link to="/orders">OrdersPage</Link>
+          </li>
+          <li>
+            <Link to="/member-page">UserPage</Link>
+          </li>
+          <li>
+            <Link to="/help">HelpPage</Link>
           </li>
         </ul>
       </nav>
 
       <Routes>
-        <Route path="/about" element={<About />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/" element={<Home />} />
+        <Route path="/products" element={<ProductsPage />} />
+        <Route path="/orders" element={<OrdersPage />} />
+        <Route path="/member-page" element={<UserPage />} />
+        <Route path="/help" element={<HelpPage />} />
+        <Route path="/" element={<HomePage />} />
       </Routes>
     </div>
   )
-}
-
-function Home() {
-  return <Container>Home</Container>
 }
