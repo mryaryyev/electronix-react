@@ -1,12 +1,12 @@
 import { Route, Routes, useLocation } from "react-router-dom"
 import "../css/app.css"
-import { HomePage } from "./screens/homePage"
-import { ProductsPage } from "./screens/productsPage"
-import { OrdersPage } from "./screens/ordersPage"
-import { UserPage } from "./screens/userPage"
-import { HelpPage } from "./screens/helpPage"
+import HomePage from "./screens/homePage"
+import ProductsPage from "./screens/productsPage"
+import OrdersPage from "./screens/ordersPage"
+import UserPage from "./screens/userPage"
+import HelpPage from "./screens/helpPage"
 import Navbar from "./components/header/Navbar"
-import { Footer } from "./components/footer"
+import Footer from "./components/footer"
 
 function App() {
   const location = useLocation()
