@@ -1,5 +1,5 @@
-import { Container } from "@mui/material"
+import CategoryPage from "../../components/categoryPage"
 
 export default function ProductsPage() {
-  return <Container>ProductsPage</Container>
+  return <CategoryPage />
 }

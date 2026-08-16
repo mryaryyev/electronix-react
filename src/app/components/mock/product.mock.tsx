@@ -101,20 +101,60 @@ export const mockProducts: Product[] = [
   },
 ]
 
-export const laptopSubGroups = [
-  {
-    label: "Macbook",
-    brand: ProductBrand.APPLE,
-    image: "/img/sub/macbook.webp",
-  },
-  {
-    label: "Windows Laptops",
-    brand: ProductBrand.ASUS,
-    image: "/img/sub/windows.webp",
-  },
-  {
-    label: "Gaming Laptops",
-    brand: ProductBrand.LENOVO,
-    image: "/img/sub/gaming.webp",
-  },
-]
+export const categorySubGroups: Partial<
+  Record<
+    ProductCategory,
+    { label: string; brand: ProductBrand; image: string }[]
+  >
+> = {
+  [ProductCategory.LAPTOP]: [
+    { label: "Macbook", brand: ProductBrand.APPLE, image: "/img/laptop.webp" },
+    {
+      label: "Windows Laptops",
+      brand: ProductBrand.ASUS,
+      image: "/img/laptop.webp",
+    },
+    {
+      label: "Gaming Laptops",
+      brand: ProductBrand.LENOVO,
+      image: "/img/laptop.webp",
+    },
+  ],
+  [ProductCategory.SMARTPHONE]: [
+    {
+      label: "iPhone",
+      brand: ProductBrand.APPLE,
+      image: "/img/smartphone.jpg",
+    },
+    {
+      label: "Samsung Galaxy",
+      brand: ProductBrand.SAMSUNG,
+      image: "/img/smartphone.jpg",
+    },
+    {
+      label: "Xiaomi",
+      brand: ProductBrand.XIAOMI,
+      image: "/img/smartphone.jpg",
+    },
+  ],
+  [ProductCategory.TABLET]: [
+    { label: "iPad", brand: ProductBrand.APPLE, image: "/img/sub/ipad.webp" },
+    {
+      label: "Galaxy Tab",
+      brand: ProductBrand.SAMSUNG,
+      image: "/img/sub/galaxytab.webp",
+    },
+  ],
+  [ProductCategory.SMARTWATCH]: [
+    {
+      label: "Apple Watch",
+      brand: ProductBrand.APPLE,
+      image: "/img/sub/applewatch.webp",
+    },
+    {
+      label: "Galaxy Watch",
+      brand: ProductBrand.SAMSUNG,
+      image: "/img/sub/galaxywatch.webp",
+    },
+  ],
+}
