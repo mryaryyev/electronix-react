@@ -1,0 +1,18 @@
+.latest-section {
+  padding: 10px 0;
+}
+
+.latest-section-header {
+  margin-bottom: 1px;
+}
+
+.latest-section-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: rgb(52, 117, 68);
+}
+
+.product-row {
+  overflow-x: auto;
+  padding: 6px 4px 24px;
+}
