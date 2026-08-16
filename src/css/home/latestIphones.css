@@ -1,0 +1,18 @@
+.iphones-section {
+  padding: 10px 0;
+}
+
+.iphones-section-header {
+  margin-bottom: 1px;
+}
+
+.iphones-section-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: rgb(52, 117, 68);
+}
+
+.product-row {
+  overflow-x: auto;
+  padding: 6px 4px 24px;
+}
