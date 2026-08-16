@@ -1,0 +1,18 @@
+.samsung-section {
+  padding: 10px 0;
+}
+
+.samsung-section-header {
+  margin-bottom: 1px;
+}
+
+.samsung-section-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: rgb(52, 117, 68);
+}
+
+.product-row {
+  overflow-x: auto;
+  padding: 6px 4px 24px;
+}
