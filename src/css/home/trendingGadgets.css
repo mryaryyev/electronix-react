@@ -1,0 +1,18 @@
+.trending-section {
+  padding: 40px 0;
+}
+
+.section-header {
+  margin-bottom: 1px;
+}
+
+.trending-section-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: rgb(52, 117, 68);
+}
+
+.product-row {
+  overflow-x: auto;
+  padding: 6px 4px 24px;
+}

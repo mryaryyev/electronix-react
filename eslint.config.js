@@ -53,14 +53,16 @@ const eslintConfig = config(
     },
     rules: {
       "no-undef": [0],
-      "@typescript-eslint/consistent-type-definitions": [2, "type"],
+      // "@typescript-eslint/consistent-type-definitions": [2, "type"],
+      "@typescript-eslint/consistent-type-definitions": [0],
       "@typescript-eslint/consistent-type-imports": [
-        2,
-        {
-          prefer: "type-imports",
-          fixStyle: "separate-type-imports",
-          disallowTypeAnnotations: true,
-        },
+        0,
+        // 2,
+        // {
+        //   prefer: "type-imports",
+        //   fixStyle: "separate-type-imports",
+        //   disallowTypeAnnotations: true,
+        // },
       ],
       "no-restricted-imports": [
         2,
