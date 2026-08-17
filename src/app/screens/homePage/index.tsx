@@ -3,7 +3,6 @@ import Categories from "./Categories"
 import Events from "./Events"
 import LatestGadgets from "./LatestGadgets"
 import LatestIphones from "./LatestIphones"
-import LatestSamsung from "./LatestSamsung"
 import ShopByBrand from "./ShopByBrand"
 import TrendingGadgets from "./TrendingGadgets"
 
@@ -14,7 +13,6 @@ export default function HomePage() {
       <TrendingGadgets />
       <LatestGadgets />
       <LatestIphones />
-      <LatestSamsung />
       <ShopByBrand />
       <Advertisement />
       <Events />
