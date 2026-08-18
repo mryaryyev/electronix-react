@@ -1,0 +1,191 @@
+.footer {
+  background: #202120;
+}
+
+.footer-frame {
+  width: 100%;
+  padding: 30px;
+}
+
+.footer-frame .footer-top {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.footer-frame .footer-col {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  min-width: 140px;
+}
+
+.footer-frame .footer-brand {
+  flex: 0 0 auto;
+  max-width: 340px;
+  min-width: 280px;
+}
+
+.footer-frame .footer-logo {
+  font-family: "GT Walsheim Pro";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+
+.footer-frame .footer-desc {
+  margin-top: 12px;
+  font-family: "GT Walsheim Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 24px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.footer-frame .footer-contact-card {
+  margin-top: 24px;
+  padding: 18px 20px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-frame .contact-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.footer-frame .contact-row img {
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  opacity: 0.8;
+}
+
+.footer-frame .contact-row > div {
+  font-family: "GT Walsheim Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.footer-frame .footer-col-title {
+  position: relative;
+  font-family: "GT Walsheim Pro";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #ffffff;
+  padding-bottom: 14px;
+  display: inline-block;
+}
+
+.footer-frame .footer-col-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 28px;
+  height: 3px;
+  border-radius: 2px;
+  background: #6a5acd;
+}
+
+.footer-frame .footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.footer-frame .footer-links a {
+  font-family: "GT Walsheim Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-frame .footer-links a:hover {
+  color: #ffffff;
+}
+
+.footer-frame .footer-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 48px 0 24px 0;
+}
+
+.footer-frame .footer-bottom {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-frame .footer-copyright {
+  font-family: "GT Walsheim Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.footer-frame .footer-socials {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  padding-right: 40px;
+}
+
+.footer-frame .social-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.footer-frame .social-icon:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.footer-frame .social-icon img {
+  width: 16px;
+  height: 16px;
+}
+
+@media (max-width: 900px) {
+  .footer-frame .footer-top {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .footer-frame .footer-bottom {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+}

@@ -7,7 +7,7 @@ import OrdersPage from "./screens/ordersPage"
 import UserPage from "./screens/userPage"
 import HelpPage from "./screens/helpPage"
 import Navbar from "./components/header/Navbar"
-import Footer from "./components/footer"
+import Footer from "./components/footer/Footer"
 
 function App() {
   const location = useLocation()
