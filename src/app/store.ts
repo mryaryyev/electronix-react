@@ -1,11 +1,14 @@
 import type { Action, ThunkAction } from "@reduxjs/toolkit"
 import { configureStore } from "@reduxjs/toolkit"
 import reduxLogger from "redux-logger"
+import HomePageReducer from "./screens/homePage/slice"
 
 export const store = configureStore({
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware().concat(reduxLogger),
-  reducer: {},
+  reducer: {
+    homePage: HomePageReducer,
+  },
 })
 
 // Infer the `RootState` and 'AppDispatch' types from the store itself

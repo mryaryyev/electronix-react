@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import Advertisement from "./Advertisement"
 import Categories from "./Categories"
 import Events from "./Events"
@@ -8,6 +9,10 @@ import TrendingGadgets from "./TrendingGadgets"
 import "../../../css/home/home.css"
 
 export default function HomePage() {
+  useEffect(() => {
+    return () => {}
+  }, [])
+
   return (
     <div className="homepage">
       <Categories />
