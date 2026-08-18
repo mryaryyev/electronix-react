@@ -5,6 +5,7 @@ import LatestGadgets from "./LatestGadgets"
 import LatestIphones from "./LatestIphones"
 import ShopByBrand from "./ShopByBrand"
 import TrendingGadgets from "./TrendingGadgets"
+import "../../../css/home/home.css"
 
 export default function HomePage() {
   return (
