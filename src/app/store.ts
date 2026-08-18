@@ -1,7 +1,10 @@
 import type { Action, ThunkAction } from "@reduxjs/toolkit"
 import { configureStore } from "@reduxjs/toolkit"
+import reduxLogger from "redux-logger"
 
 export const store = configureStore({
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().concat(reduxLogger),
   reducer: {},
 })
 

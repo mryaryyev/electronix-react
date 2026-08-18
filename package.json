@@ -27,6 +27,7 @@
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^6",
+    "redux-logger": "^3.0.6",
     "swiper": "^11"
   },
   "devDependencies": {
@@ -39,6 +40,7 @@
     "@types/node": "^22.14.0",
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.1",
+    "@types/redux-logger": "^3.0.13",
     "@vitejs/plugin-react": "^4.3.4",
     "@vitest/eslint-plugin": "^1.1.39",
     "eslint": "^9.23.0",
