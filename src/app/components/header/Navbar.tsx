@@ -16,7 +16,7 @@ import {
   Logout as LogoutIcon,
   BoltOutlined as BoltIcon,
 } from "@mui/icons-material"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { categoryNavItems } from "../mock/navbar.mock"
 import "../../../css/navbar.css"
 
@@ -28,6 +28,7 @@ const MOCK_MEMBER = {
 const CART_ITEM_COUNT = 1
 
 export default function Navbar() {
+  const navigate = useNavigate()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -92,6 +93,11 @@ export default function Navbar() {
                 width={28}
                 height={28}
               />
+              <Box>
+                <NavLink to="/help" className="orders-link">
+                  Help
+                </NavLink>
+              </Box>
             </Stack>
 
             <Badge badgeContent={CART_ITEM_COUNT} color="error">
@@ -135,7 +141,14 @@ export default function Navbar() {
                   transformOrigin={{ horizontal: "right", vertical: "top" }}
                   anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                 >
-                  <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      handleMenuClose()
+                      navigate("/member-page")
+                    }}
+                  >
+                    Profile
+                  </MenuItem>
                   <MenuItem onClick={handleLogout}>
                     <ListItemIcon>
                       <LogoutIcon fontSize="small" />
