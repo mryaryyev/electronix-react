@@ -1,17 +1,20 @@
 import { Container, Stack } from "@mui/material"
-import ProductCard from "../../components/productCard"
-import { mockProducts } from "../../components/mock/product.mock"
+import ProductCard from "../../components/productCard/ProductCard"
 import "../../../css/home/latestGadgets.css"
 
-const LATEST_LIMIT = 5
+import { useSelector } from "react-redux"
+import { createSelector } from "reselect"
+import { retrieveLatestGadgets } from "./selector"
+import { Product } from "../../../libs/types/product"
+
+/** REDUX SLICE & SELECTOR */
+const latestGadgetsRetriever = createSelector(
+  retrieveLatestGadgets,
+  latestGadgets => ({ latestGadgets }),
+)
 
 export default function LatestGadgets() {
-  const latest = [...mockProducts]
-    .sort(
-      (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-    )
-    .slice(0, LATEST_LIMIT)
+  const { latestGadgets } = useSelector(latestGadgetsRetriever)
 
   return (
     <Container className="latest-section">
@@ -24,9 +27,13 @@ export default function LatestGadgets() {
       </Stack>
 
       <Stack direction="row" spacing={3} className="product-row">
-        {latest.map(product => (
-          <ProductCard key={product._id} product={product} />
-        ))}
+        {latestGadgets.length !== 0 ? (
+          latestGadgets.map((product: Product) => (
+            <ProductCard key={product._id} product={product} />
+          ))
+        ) : (
+          <div className="no-data">Latest products are not available</div>
+        )}
       </Stack>
     </Container>
   )
