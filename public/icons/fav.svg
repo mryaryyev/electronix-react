@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <!-- Mavi Daire ve Gölge Efekti -->
+    <clipPath id="circle-clip">
+      <circle cx="250" cy="250" r="230"/>
+    </clipPath>
+  </defs>
+
+  <!-- Arka Plan Mavi Daire -->
+  <circle cx="250" cy="250" r="230" fill="#5B93FF" />
+
+  <!-- Uzun Gölge (Long Shadow) -->
+  <polygon points="120,170 500,550 500,1000 120,1000" fill="#4B82F0" clip-path="url(#circle-clip)" opacity="0.6"/>
+
+  <!-- İçerik Grubu (Beyaz İkonlar) -->
+  <g fill="none" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round">
+    
+    <!-- AKILLI TELEFON -->
+    <!-- Telefon Gövdesi -->
+    <rect x="125" y="170" width="100" height="170" rx="12" fill="#FFFFFF" stroke="none" />
+    <!-- Ekran -->
+    <rect x="135" y="188" width="80" height="122" fill="#5B93FF" stroke="none" />
+    <!-- Home Tuşu -->
+    <circle cx="175" cy="324" r="5" fill="none" stroke="#5B93FF" stroke-width="2.5" />
+    <!-- Ahize Yarık Çizgisi -->
+    <line x1="163" y1="180" x2="187" y2="180" stroke="#5B93FF" stroke-width="3" />
+    <!-- Şarj/Kulaklık Girişi -->
+    <rect x="170" y="162" width="10" height="8" fill="#FFFFFF" stroke="none" rx="1" />
+
+    <!-- KABLOLAR (Telefon ile Kulaklık Arasındaki Bağlantı) -->
+    <!-- Telefona Giren Düz Kablo -->
+    <path d="M 175 162 L 175 145" stroke="#FFFFFF" stroke-width="4" />
+    <!-- Üst Yuvarlak Kablo Yayları -->
+    <path d="M 175 145 C 190 120, 280 120, 310 150 C 330 170, 310 210, 290 200 C 270 190, 310 130, 345 155" stroke="#FFFFFF" stroke-width="4" fill="none" />
+    <!-- Sağ Kesikli Kablo/Çizgi Detayı -->
+    <path d="M 370 180 C 410 240, 390 300, 360 315" stroke="#FFFFFF" stroke-width="4" stroke-dasharray="10 8" fill="none" />
+
+    <!-- KULAKLIK (HEADPHONES) -->
+    <!-- Kulaklık Bant Yayı (Kavisli Üst Kısım) -->
+    <path d="M 210 270 C 205 140, 385 140, 380 270" stroke="#FFFFFF" stroke-width="12" fill="none" />
+    
+    <!-- Sol Kulaklık Sürücüsü -->
+    <g>
+      <path d="M 203 250 C 203 235, 235 235, 245 250 L 245 320 C 235 335, 203 335, 203 320 Z" fill="#FFFFFF" stroke="none"/>
+      <rect x="245" y="250" width="18" height="70" rx="9" fill="#FFFFFF" stroke="none"/>
+      <!-- İç Yarık Detayı -->
+      <line x1="220" y1="270" x2="220" y2="300" stroke="#5B93FF" stroke-width="3" />
+    </g>
+
+    <!-- Sağ Kulaklık Sürücüsü -->
+    <g>
+      <path d="M 387 250 C 387 235, 355 235, 345 250 L 345 320 C 355 335, 387 335, 387 320 Z" fill="#FFFFFF" stroke="none"/>
+      <rect x="327" y="250" width="18" height="70" rx="9" fill="#FFFFFF" stroke="none"/>
+      <!-- İç Yarık Detayı -->
+      <line x1="370" y1="270" x2="370" y2="300" stroke="#5B93FF" stroke-width="3" />
+    </g>
+    
+  </g>
+</svg>
