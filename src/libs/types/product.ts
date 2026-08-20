@@ -3,6 +3,7 @@ import {
   ProductCategory,
   ProductStatus,
 } from "../enums/product.enum"
+import { T } from "./common"
 
 export interface Product {
   _id: string
@@ -12,7 +13,7 @@ export interface Product {
   productName: string
   productPrice: number
   productLeftCount: number
-  productSpecs?: Record<string, any>
+  productSpecs?: T
   productDesc?: string
   productImages: string[]
   productViews: number

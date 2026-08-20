@@ -8,27 +8,33 @@ import Advertisement from "./Advertisement"
 import Events from "./Events"
 import "../../../css/home/home.css"
 
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { Dispatch } from "@reduxjs/toolkit"
-import { createSelector } from "reselect"
 import { setTrendingGadgets } from "./slice"
-import { retrieveTrendingGadgets } from "./selector"
 import { Product } from "../../../libs/types/product"
+import ProductService from "../../services/ProductService"
 
 /** REDUX SLICE & SELECTOR */
 const actionDispatch = (dispatch: Dispatch) => ({
   setTrendingGadgets: (data: Product[]) => dispatch(setTrendingGadgets(data)),
 })
-const trendingGadgetsRetriever = createSelector(
-  retrieveTrendingGadgets,
-  trendingGadgets => ({ trendingGadgets }),
-)
 
 export default function HomePage() {
   const { setTrendingGadgets } = actionDispatch(useDispatch())
-  const { trendingGadgets } = useSelector(trendingGadgetsRetriever)
   useEffect(() => {
-    return () => {}
+    const product = new ProductService()
+    product
+      .getProducts({
+        page: 1,
+        limit: 5,
+        order: "productViews",
+      })
+      .then(data => {
+        setTrendingGadgets(data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }, [])
 
   return (

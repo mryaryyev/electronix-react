@@ -1,14 +1,20 @@
 import { Container, Stack } from "@mui/material"
-import ProductCard from "../../components/productCard"
-import { mockProducts } from "../../components/mock/product.mock"
+import ProductCard from "../../components/productCard/ProductCard"
 import "../../../css/home/trendingGadgets.css"
 
-const TRENDING_LIMIT = 5
+import { useSelector } from "react-redux"
+import { createSelector } from "reselect"
+import { retrieveTrendingGadgets } from "./selector"
+import { Product } from "../../../libs/types/product"
+
+/** REDUX SLICE & SELECTOR */
+const trendingGadgetsRetriever = createSelector(
+  retrieveTrendingGadgets,
+  trendingGadgets => ({ trendingGadgets }),
+)
 
 export default function TrendingGadgets() {
-  const trending = [...mockProducts]
-    .sort((a, b) => b.productViews - a.productViews)
-    .slice(0, TRENDING_LIMIT)
+  const { trendingGadgets } = useSelector(trendingGadgetsRetriever)
 
   return (
     <Container className="trending-section">
@@ -21,9 +27,13 @@ export default function TrendingGadgets() {
       </Stack>
 
       <Stack direction="row" spacing={3} className="product-row">
-        {trending.map(product => (
-          <ProductCard key={product._id} product={product} />
-        ))}
+        {trendingGadgets.length !== 0 ? (
+          trendingGadgets.map((product: Product) => (
+            <ProductCard key={product._id} product={product} />
+          ))
+        ) : (
+          <div className="no-data">Trending products are not available</div>
+        )}
       </Stack>
     </Container>
   )
