@@ -10,18 +10,21 @@ import "../../../css/home/home.css"
 
 import { useDispatch } from "react-redux"
 import { Dispatch } from "@reduxjs/toolkit"
-import { setTrendingGadgets, setLatestGadgets } from "./slice"
+import { setTrendingGadgets, setLatestGadgets, setLatestIphones } from "./slice"
 import { Product } from "../../../libs/types/product"
 import ProductService from "../../services/ProductService"
+import { ProductBrand, ProductCategory } from "../../../libs/enums/product.enum"
 
 /** REDUX SLICE & SELECTOR */
 const actionDispatch = (dispatch: Dispatch) => ({
   setTrendingGadgets: (data: Product[]) => dispatch(setTrendingGadgets(data)),
   setLatestGadgets: (data: Product[]) => dispatch(setLatestGadgets(data)),
+  setLatestIphones: (data: Product[]) => dispatch(setLatestIphones(data)),
 })
 
 export default function HomePage() {
-  const { setTrendingGadgets, setLatestGadgets } = actionDispatch(useDispatch())
+  const { setTrendingGadgets, setLatestGadgets, setLatestIphones } =
+    actionDispatch(useDispatch())
   useEffect(() => {
     const product = new ProductService()
     product
@@ -45,6 +48,21 @@ export default function HomePage() {
       })
       .then(data => {
         setLatestGadgets(data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+
+    product
+      .getProducts({
+        page: 1,
+        limit: 5,
+        order: "createdAt",
+        productCategory: ProductCategory.SMARTPHONE,
+        productBrand: ProductBrand.APPLE,
+      })
+      .then(data => {
+        setLatestIphones(data)
       })
       .catch(err => {
         console.log(err)

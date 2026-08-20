@@ -1,22 +1,22 @@
 import { Container, Stack } from "@mui/material"
-import ProductCard from "../../components/productCard"
-import { mockProducts } from "../../components/mock/product.mock"
-import { ProductBrand, ProductCategory } from "../../../libs/enums/product.enum"
+import ProductCard from "../../components/productCard/ProductCard"
 import "../../../css/home/latestIphones.css"
 
-const LATEST_LIMIT = 5
+import { useSelector } from "react-redux"
+import { createSelector } from "reselect"
+import { retrieveLatestIphones } from "./selector"
+import { Product } from "../../../libs/types/product"
+
+/** REDUX SLICE & SELECTOR */
+const latestIphonesRetriever = createSelector(
+  retrieveLatestIphones,
+  latestIphones => ({
+    latestIphones,
+  }),
+)
 
 export default function LatestIphones() {
-  const latest = [...mockProducts]
-    .filter(
-      (p) =>
-        p.productBrand === ProductBrand.APPLE &&
-        p.productCategory === ProductCategory.SMARTPHONE,
-    )
-    .sort(
-      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-    )
-    .slice(0, LATEST_LIMIT)
+  const { latestIphones } = useSelector(latestIphonesRetriever)
 
   return (
     <Container className="iphones-section">
@@ -29,9 +29,13 @@ export default function LatestIphones() {
       </Stack>
 
       <Stack direction="row" spacing={3} className="product-row">
-        {latest.map((product) => (
-          <ProductCard key={product._id} product={product} />
-        ))}
+        {latestIphones.length !== 0 ? (
+          latestIphones.map((product: Product) => (
+            <ProductCard key={product._id} product={product} />
+          ))
+        ) : (
+          <div className="no-data">Latest products are not available</div>
+        )}
       </Stack>
     </Container>
   )

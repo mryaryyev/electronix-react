@@ -12,7 +12,7 @@ export const retrieveLatestGadgets = createSelector(
   HomePage => HomePage.latestGadgets,
 )
 
-export const retrievelatestIphones = createSelector(
+export const retrieveLatestIphones = createSelector(
   selectHomePage,
   HomePage => HomePage.latestIphones,
 )
