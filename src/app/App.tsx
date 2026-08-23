@@ -2,12 +2,12 @@ import { Route, Routes, useLocation } from "react-router-dom"
 import "../css/app.css"
 import HomePage from "./screens/homePage"
 import ProductsPage from "./screens/productsPage"
-import ProductDetailPage from "./screens/productDetailPage"
 import OrdersPage from "./screens/ordersPage"
 import UserPage from "./screens/userPage"
 import HelpPage from "./screens/helpPage"
 import Navbar from "./components/header/Navbar"
 import Footer from "./components/footer/Footer"
+import ChosenProduct from "./screens/productsPage/ChosenProduct"
 
 function App() {
   const location = useLocation()
@@ -20,7 +20,7 @@ function App() {
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/products/:category" element={<ProductsPage />} />
         <Route path="/products/brand/:brand" element={<ProductsPage />} />
-        <Route path="/product/:id" element={<ProductDetailPage />} />
+        <Route path="/product/:id" element={<ChosenProduct />} />
         <Route path="/orders" element={<OrdersPage />} />
         <Route path="/member-page" element={<UserPage />} />
         <Route path="/help" element={<HelpPage />} />

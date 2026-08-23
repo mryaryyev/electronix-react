@@ -7,3 +7,8 @@ export const retrieveProducts = createSelector(
   selectProductsPage,
   productsPage => productsPage.products,
 )
+
+export const retrieveChosenProduct = createSelector(
+  selectProductsPage,
+  productsPage => productsPage.chosenProduct,
+)

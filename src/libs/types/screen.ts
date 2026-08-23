@@ -17,6 +17,7 @@ export interface HomePageState {
 /** PRODUCTS PAGE */
 export interface ProductsPageState {
   products: Product[]
+  chosenProduct: Product | null
 }
 
 /** ORDERS PAGE */
