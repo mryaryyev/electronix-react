@@ -40,3 +40,29 @@
   max-height: 100%;
   object-fit: contain;
 }
+
+.brand-filter-row {
+  margin: 16px 0;
+  flex-wrap: wrap;
+}
+
+.brand-pill {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.brand-pill:hover {
+  border-color: #6ea87f;
+}
+
+.brand-pill.active {
+  background: #14161a;
+  color: #fff;
+  border-color: #14161a;
+}

@@ -17,36 +17,29 @@
   margin-bottom: 20px;
 }
 
-.sub-strip {
-  margin-bottom: 30px;
+.brand-filter-row {
+  margin-bottom: 20px;
 }
 
-.sub-item {
-  text-align: center;
-  cursor: pointer;
-  padding: 6px;
-  border-radius: 10px;
-  border: 2px solid transparent;
-}
-
-.sub-item.active {
-  border-color: #2c6b3f;
-  background: #e8f3ea;
-}
-
-.sub-item .thumb {
-  width: 130px;
-  height: 90px;
-  border-radius: 10px;
-  background-size: cover;
-  background-position: center;
-  background-color: #f2f2f4;
-  margin-bottom: 8px;
-}
-
-.sub-item .label {
+.brand-pill {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: 1px solid #d1d5db;
+  background: #fff;
   font-size: 13px;
   font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.brand-pill:hover {
+  border-color: #6ea87f;
+}
+
+.brand-pill.active {
+  background: #14161a;
+  color: #fff;
+  border-color: #14161a;
 }
 
 .toolbar-row {
@@ -123,23 +116,17 @@
 
 .pagination {
   margin-top: 28px;
-  justify-content: center;
 }
-.pagination button {
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  font-size: 14px;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
+
+.custom-pagination .MuiPaginationItem-root {
+  color: #14161a;
 }
-.pagination button:disabled {
-  opacity: 0.3;
-  cursor: default;
-}
-.pagination .page-num.active {
-  background: #14161a;
+
+.custom-pagination .MuiPaginationItem-root.Mui-selected {
+  background-color: #6ea87f;
   color: #fff;
-  font-weight: 700;
+}
+
+.custom-pagination .MuiPaginationItem-root.Mui-selected:hover {
+  background-color: #5c9169;
 }
