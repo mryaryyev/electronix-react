@@ -1,3 +1,5 @@
+import "../../../css/home/advertisement.css"
+
 export default function Advertisement() {
   return (
     <div className="advertisement-section">

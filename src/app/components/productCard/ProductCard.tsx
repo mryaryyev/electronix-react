@@ -4,14 +4,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility"
 import { Product } from "../../../libs/types/product"
 import "../../../css/productCard.css"
 import { serverApi } from "../../../libs/config"
-
-const NEW_THRESHOLD_DAYS = 14
-
-function isNewProduct(createdAt: Date): boolean {
-  const diffMs = Date.now() - new Date(createdAt).getTime()
-  const diffDays = diffMs / (1000 * 60 * 60 * 24)
-  return diffDays <= NEW_THRESHOLD_DAYS
-}
+import { isNewProduct } from "../../../libs/utils/product.utils"
 
 interface ProductCardProps {
   product: Product

@@ -1,32 +1,37 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useParams, NavLink } from "react-router-dom"
 import { Container, Stack, Typography } from "@mui/material"
+import { useDispatch, useSelector } from "react-redux"
+import { Dispatch } from "@reduxjs/toolkit"
+import { createSelector } from "reselect"
 import ProductService from "../../services/ProductService"
+import { setChosenProduct } from "./slice"
+import { retrieveChosenProduct } from "./selector"
 import { serverApi } from "../../../libs/config"
 import { Product } from "../../../libs/types/product"
+import {
+  isNewProduct,
+  formatBrandOrCategory,
+} from "../../../libs/utils/product.utils"
 import "../../../css/productDetail.css"
 
-const CATEGORY_LABELS: Record<string, string> = {
-  SMARTPHONE: "Smartphones",
-  LAPTOP: "Laptops",
-  TABLET: "Tablets",
-  SMARTWATCH: "Smartwatch",
-  CAMERA: "Cameras",
-  ACCESSORY: "Accessories",
-}
+/** REDUX SLICE & SELECTOR */
+const actionDispatch = (dispatch: Dispatch) => ({
+  setChosenProduct: (data: Product | null) => dispatch(setChosenProduct(data)),
+})
+const chosenProductRetriever = createSelector(
+  retrieveChosenProduct,
+  chosenProduct => ({ chosenProduct }),
+)
 
-const NEW_THRESHOLD_DAYS = 14
-
-function isNewProduct(createdAt: Date): boolean {
-  const diffMs = Date.now() - new Date(createdAt).getTime()
-  const diffDays = diffMs / (1000 * 60 * 60 * 24)
-  return diffDays <= NEW_THRESHOLD_DAYS
-}
-
-export default function ProductDetailPage() {
+export default function ChosenProduct() {
   const { id } = useParams()
-  const [product, setProduct] = useState<Product | null>(null)
-  const [notFound, setNotFound] = useState(false)
+  const { setChosenProduct } = actionDispatch(useDispatch())
+  const { chosenProduct } = useSelector(chosenProductRetriever)
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [id])
 
   useEffect(() => {
     if (!id) return
@@ -35,30 +40,21 @@ export default function ProductDetailPage() {
     productService
       .getProduct(id)
       .then(data => {
-        setProduct(data)
+        setChosenProduct(data)
       })
       .catch(err => {
         console.log(err)
-        setNotFound(true)
+        setChosenProduct(null)
       })
   }, [id])
 
-  if (notFound) {
-    return (
-      <Container className="product-detail-page">
-        <div className="no-data">Ürün bulunamadı</div>
-      </Container>
-    )
-  }
-
-  if (!product) {
+  if (!chosenProduct) {
     return null
   }
 
-  const isNew = isNewProduct(product.createdAt)
-  const categoryLabel =
-    CATEGORY_LABELS[product.productCategory] || product.productCategory
-  const imagePath = `${serverApi}/${product.productImages[0]}`
+  const isNew = isNewProduct(chosenProduct.createdAt)
+  const categoryLabel = formatBrandOrCategory(chosenProduct.productCategory)
+  const imagePath = `${serverApi}/${chosenProduct.productImages[0]}`
 
   return (
     <Container
@@ -68,42 +64,46 @@ export default function ProductDetailPage() {
     >
       <div className="breadcrumb">
         Home &gt;{" "}
-        <NavLink to={`/products/${product.productCategory}`}>
+        <NavLink to={`/products/${chosenProduct.productCategory}`}>
           {categoryLabel}
         </NavLink>
         &gt;{" "}
-        <NavLink to={`/products/brand/${product.productBrand}`}>
-          {product.productBrand}
+        <NavLink to={`/products/brand/${chosenProduct.productBrand}`}>
+          {chosenProduct.productBrand}
         </NavLink>
-        &gt; <b>{product.productName}</b>
+        &gt; <b>{chosenProduct.productName}</b>
       </div>
 
       <div className="pdp-grid">
         <div className="pdp-image">
           {isNew && <span className="badge-new">NEW</span>}
-          <img src={imagePath} alt={product.productName} />
+          <img src={imagePath} alt={chosenProduct.productName} />
         </div>
 
         <div className="pdp-info">
           <Typography className="pdp-eyebrow">
-            {product.productBrand}
+            {chosenProduct.productBrand}
           </Typography>
-          <Typography className="pdp-title">{product.productName}</Typography>
+          <Typography className="pdp-title">
+            {chosenProduct.productName}
+          </Typography>
           <Typography className="pdp-price">
             <span className="currency">$</span>
-            {product.productPrice.toLocaleString()}
+            {chosenProduct.productPrice.toLocaleString()}
           </Typography>
 
-          {product.productSpecs &&
-            Object.keys(product.productSpecs).length > 0 && (
+          {chosenProduct.productSpecs &&
+            Object.keys(chosenProduct.productSpecs).length > 0 && (
               <div className="keyfeatures">
                 <h4>Key Features</h4>
                 <ul>
-                  {Object.entries(product.productSpecs).map(([key, value]) => (
-                    <li key={key}>
-                      <b>{key}:</b> {String(value)}
-                    </li>
-                  ))}
+                  {Object.entries(chosenProduct.productSpecs).map(
+                    ([key, value]) => (
+                      <li key={key}>
+                        <b>{key}:</b> {String(value)}
+                      </li>
+                    ),
+                  )}
                 </ul>
               </div>
             )}
