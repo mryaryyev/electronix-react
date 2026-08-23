@@ -10,7 +10,12 @@ import "../../../css/home/home.css"
 
 import { useDispatch } from "react-redux"
 import { Dispatch } from "@reduxjs/toolkit"
-import { setTrendingGadgets, setLatestGadgets, setLatestIphones } from "./slice"
+import {
+  setTrendingGadgets,
+  setLatestGadgets,
+  setLatestIphones,
+  setShopByBrand,
+} from "./slice"
 import { Product } from "../../../libs/types/product"
 import ProductService from "../../services/ProductService"
 import { ProductBrand, ProductCategory } from "../../../libs/enums/product.enum"
@@ -20,11 +25,16 @@ const actionDispatch = (dispatch: Dispatch) => ({
   setTrendingGadgets: (data: Product[]) => dispatch(setTrendingGadgets(data)),
   setLatestGadgets: (data: Product[]) => dispatch(setLatestGadgets(data)),
   setLatestIphones: (data: Product[]) => dispatch(setLatestIphones(data)),
+  setShopByBrand: (data: Product[]) => dispatch(setShopByBrand(data)),
 })
 
 export default function HomePage() {
-  const { setTrendingGadgets, setLatestGadgets, setLatestIphones } =
-    actionDispatch(useDispatch())
+  const {
+    setTrendingGadgets,
+    setLatestGadgets,
+    setLatestIphones,
+    setShopByBrand,
+  } = actionDispatch(useDispatch())
   useEffect(() => {
     const product = new ProductService()
     product

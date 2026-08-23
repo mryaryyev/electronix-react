@@ -4,12 +4,12 @@ import { ProductBrand } from "../../../libs/enums/product.enum"
 import "../../../css/home/shopByBrand.css"
 
 const BRAND_LOGOS: Record<ProductBrand, string> = {
-  [ProductBrand.APPLE]: "/icons/samsung-logo.webp",
-  [ProductBrand.SAMSUNG]: "/icons/samsung-logo.webp",
-  [ProductBrand.LENOVO]: "/icons/samsung-logo.webp",
-  [ProductBrand.ASUS]: "/icons/samsung-logo.webp",
-  [ProductBrand.XIAOMI]: "/icons/samsung-logo.webp",
-  [ProductBrand.HUAWEI]: "/icons/samsung-logo.webp",
+  [ProductBrand.APPLE]: "/icons/apple-logo.svg",
+  [ProductBrand.SAMSUNG]: "/icons/samsung-logo.svg",
+  [ProductBrand.LENOVO]: "/icons/lenovo-logo.svg",
+  [ProductBrand.ASUS]: "/icons/asus-logo.svg",
+  [ProductBrand.XIAOMI]: "/icons/xiaomi-logo.svg",
+  [ProductBrand.HUAWEI]: "/icons/huawei-logo.svg",
 }
 
 export default function ShopByBrand() {
@@ -19,7 +19,7 @@ export default function ShopByBrand() {
     <Container className="shop-by-brand-section">
       <h2 className="shop-by-brand-title">Shop by Brand</h2>
 
-      <Stack direction="row" spacing={2} className="brand-row">
+      <Stack direction="row" spacing={4} className="brand-row">
         {brands.map(brand => (
           <NavLink
             key={brand}

@@ -1,15 +1,14 @@
-import { useMemo, useState } from "react"
+import { useEffect, useState } from "react"
 import { useParams, useSearchParams } from "react-router-dom"
 import { Box, Container, InputBase, Slider, Stack } from "@mui/material"
 import { Search as SearchIcon } from "@mui/icons-material"
-import {
-  mockProducts,
-  categorySubGroups,
-} from "../../components/mock/product.mock"
-import ProductCard from "../../components/productCard"
+import ProductCard from "../../components/productCard/ProductCard"
+import ProductService from "../../services/ProductService"
+import { Product, ProductInquiry } from "../../../libs/types/product"
+import { ProductBrand, ProductCategory } from "../../../libs/enums/product.enum"
 import "../../../css/categoryPage.css"
 
-const PAGE_SIZE = 4
+const PAGE_SIZE = 10
 type SortOption = "createdAt" | "productPrice" | "productViews"
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -35,10 +34,10 @@ export default function CategoryPage() {
   const [searchParams] = useSearchParams()
   const searchFromUrl = searchParams.get("search") || ""
 
-  const [selectedBrand, setSelectedBrand] = useState<string | null>(null)
+  const [products, setProducts] = useState<Product[]>([])
   const [sort, setSort] = useState<SortOption>("createdAt")
   const [search, setSearch] = useState(searchFromUrl)
-  const [priceRange, setPriceRange] = useState<number[]>([98000, 300000])
+  const [priceRange, setPriceRange] = useState<number[]>([0, 3000])
   const [page, setPage] = useState(1)
 
   const pageTitle = brand
@@ -47,38 +46,39 @@ export default function CategoryPage() {
       ? CATEGORY_LABELS[category] || category
       : "Tüm Ürünler"
 
-  const filtered = useMemo(() => {
-    let list = mockProducts
+  useEffect(() => {
+    const productService = new ProductService()
+
+    const inquiry: ProductInquiry = {
+      page,
+      limit: PAGE_SIZE,
+      order: sort,
+      minPrice: priceRange[0],
+      maxPrice: priceRange[1],
+    }
 
     if (brand) {
-      list = list.filter(p => p.productBrand === brand)
+      inquiry.productBrand = brand.toUpperCase() as ProductBrand
     } else if (category) {
-      list = list.filter(p => p.productCategory === category)
-      if (selectedBrand) {
-        list = list.filter(p => p.productBrand === selectedBrand)
-      }
+      inquiry.productCategory = category.toUpperCase() as ProductCategory
     }
 
     if (search.trim()) {
-      list = list.filter(p =>
-        p.productName.toLowerCase().includes(search.trim().toLowerCase()),
-      )
+      inquiry.search = search.trim()
     }
 
-    const [min, max] = priceRange
-    list = list.filter(p => p.productPrice >= min && p.productPrice <= max)
+    productService
+      .getProducts(inquiry)
+      .then(data => setProducts(data))
+      .catch(err => {
+        console.log(err)
+      })
+  }, [category, brand, search, priceRange, sort, page])
 
-    list = [...list].sort((a, b) => {
-      if (sort === "productPrice") return a.productPrice - b.productPrice
-      if (sort === "productViews") return b.productViews - a.productViews
-      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    })
-
-    return list
-  }, [category, brand, selectedBrand, search, priceRange, sort])
-
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
-  const pageItems = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
+  // filtre değişince sayfayı 1'e sıfırla
+  useEffect(() => {
+    setPage(1)
+  }, [category, brand, search, priceRange, sort])
 
   return (
     <Container
@@ -90,32 +90,6 @@ export default function CategoryPage() {
         Home &gt; <b>{pageTitle}</b>
       </div>
       <h1 className="page-title">{pageTitle}</h1>
-
-      {!brand &&
-        category &&
-        categorySubGroups[category as keyof typeof categorySubGroups] && (
-          <Stack direction="row" spacing={3} className="sub-strip">
-            {categorySubGroups[category as keyof typeof categorySubGroups]!.map(
-              group => (
-                <Box
-                  key={group.label}
-                  className={`sub-item ${selectedBrand === group.brand ? "active" : ""}`}
-                  onClick={() =>
-                    setSelectedBrand(
-                      selectedBrand === group.brand ? null : group.brand,
-                    )
-                  }
-                >
-                  <div
-                    className="thumb"
-                    style={{ backgroundImage: `url(${group.image})` }}
-                  />
-                  <div className="label">{group.label}</div>
-                </Box>
-              ),
-            )}
-          </Stack>
-        )}
 
       <Stack
         direction="row"
@@ -130,11 +104,10 @@ export default function CategoryPage() {
               value={priceRange}
               onChange={(_, newValue) => {
                 setPriceRange(newValue as number[])
-                setPage(1)
               }}
               min={0}
-              max={350000}
-              step={5000}
+              max={3000}
+              step={50}
               size="small"
               valueLabelDisplay="auto"
               sx={{ color: "#6ea87f" }}
@@ -154,7 +127,6 @@ export default function CategoryPage() {
               value={search}
               onChange={e => {
                 setSearch(e.target.value)
-                setPage(1)
               }}
               fullWidth
               sx={{ fontSize: 14, ml: 1 }}
@@ -181,43 +153,33 @@ export default function CategoryPage() {
         </Stack>
       </Stack>
 
-      <div className="results-count">{filtered.length} products</div>
+      <div className="results-count">{products.length} products</div>
 
       <div className="product-grid">
-        {pageItems.length ? (
-          pageItems.map(p => <ProductCard key={p._id} product={p} />)
+        {products.length ? (
+          products.map(p => <ProductCard key={p._id} product={p} />)
         ) : (
           <div className="no-data">No Products</div>
         )}
       </div>
 
-      {totalPages > 1 && (
-        <Stack
-          direction="row"
-          spacing={2}
-          alignItems="center"
-          className="pagination"
+      <Stack
+        direction="row"
+        spacing={2}
+        alignItems="center"
+        className="pagination"
+      >
+        <button disabled={page === 1} onClick={() => setPage(p => p - 1)}>
+          ←
+        </button>
+        <span className="page-num active">{page}</span>
+        <button
+          disabled={products.length < PAGE_SIZE}
+          onClick={() => setPage(p => p + 1)}
         >
-          <button disabled={page === 1} onClick={() => setPage(p => p - 1)}>
-            ←
-          </button>
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map(n => (
-            <button
-              key={n}
-              className={`page-num ${page === n ? "active" : ""}`}
-              onClick={() => setPage(n)}
-            >
-              {n}
-            </button>
-          ))}
-          <button
-            disabled={page === totalPages}
-            onClick={() => setPage(p => p + 1)}
-          >
-            →
-          </button>
-        </Stack>
-      )}
+          →
+        </button>
+      </Stack>
     </Container>
   )
 }

@@ -15,8 +15,8 @@
 }
 
 .brand-card {
-  min-width: 130px;
-  height: 130px;
+  min-width: 180px;
+  height: 140px;
   flex-shrink: 0;
   background: #ffffff;
   border-radius: 18px;
@@ -24,7 +24,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 20px 28px;
   transition:
     box-shadow 0.2s ease,
     transform 0.2s ease;
