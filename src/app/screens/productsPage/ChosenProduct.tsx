@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { useParams, NavLink } from "react-router-dom"
-import { Container, Stack, Typography } from "@mui/material"
+import { Box, Container, Stack, Typography } from "@mui/material"
+import Button from "@mui/material/Button"
 import { useDispatch, useSelector } from "react-redux"
 import { Dispatch } from "@reduxjs/toolkit"
 import { createSelector } from "reselect"
@@ -13,7 +14,9 @@ import {
   isNewProduct,
   formatBrandOrCategory,
 } from "../../../libs/utils/product.utils"
-import "../../../css/productDetail.css"
+import { useGlobals } from "../../hooks/useGlobals"
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
+import "../../../css/chosenProduct.css"
 
 /** REDUX SLICE & SELECTOR */
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -25,20 +28,16 @@ const chosenProductRetriever = createSelector(
 )
 
 export default function ChosenProduct() {
-  const { id } = useParams()
+  const { productId } = useParams()
   const { setChosenProduct } = actionDispatch(useDispatch())
   const { chosenProduct } = useSelector(chosenProductRetriever)
+  const { BASKET } = useGlobals()
+  const { onAdd } = BASKET
 
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [id])
-
-  useEffect(() => {
-    if (!id) return
-
     const productService = new ProductService()
     productService
-      .getProduct(id)
+      .getProduct(productId)
       .then(data => {
         setChosenProduct(data)
       })
@@ -46,73 +45,92 @@ export default function ChosenProduct() {
         console.log(err)
         setChosenProduct(null)
       })
-  }, [id])
+  }, [productId])
 
-  if (!chosenProduct) {
-    return null
-  }
+  if (!chosenProduct) return null
 
   const isNew = isNewProduct(chosenProduct.createdAt)
   const categoryLabel = formatBrandOrCategory(chosenProduct.productCategory)
   const imagePath = `${serverApi}/${chosenProduct.productImages[0]}`
 
+  const addToCartHandler = () => {
+    onAdd({
+      _id: chosenProduct._id,
+      quantity: 1,
+      name: chosenProduct.productName,
+      price: chosenProduct.productPrice,
+      image: chosenProduct.productImages[0],
+    })
+  }
+
   return (
-    <Container
-      maxWidth={false}
-      sx={{ maxWidth: "1300px" }}
-      className="product-detail-page"
-    >
-      <div className="breadcrumb">
-        Home &gt;{" "}
-        <NavLink to={`/products/${chosenProduct.productCategory}`}>
-          {categoryLabel}
-        </NavLink>
-        &gt;{" "}
-        <NavLink to={`/products/brand/${chosenProduct.productBrand}`}>
-          {chosenProduct.productBrand}
-        </NavLink>
-        &gt; <b>{chosenProduct.productName}</b>
-      </div>
-
-      <div className="pdp-grid">
-        <div className="pdp-image">
-          {isNew && <span className="badge-new">NEW</span>}
-          <img src={imagePath} alt={chosenProduct.productName} />
-        </div>
-
-        <div className="pdp-info">
-          <Typography className="pdp-eyebrow">
+    <div className="chosen-product">
+      <Container className="product-container">
+        <Box className="breadcrumb">
+          <NavLink to="/">Home</NavLink> &gt;{" "}
+          <NavLink to={`/products/${chosenProduct.productCategory}`}>
+            {categoryLabel}
+          </NavLink>
+          &gt;{" "}
+          <NavLink to={`/products/brand/${chosenProduct.productBrand}`}>
             {chosenProduct.productBrand}
-          </Typography>
-          <Typography className="pdp-title">
-            {chosenProduct.productName}
-          </Typography>
-          <Typography className="pdp-price">
-            <span className="currency">$</span>
-            {chosenProduct.productPrice.toLocaleString()}
-          </Typography>
+          </NavLink>
+          &gt; <b>{chosenProduct.productName}</b>
+        </Box>
 
-          {chosenProduct.productSpecs &&
-            Object.keys(chosenProduct.productSpecs).length > 0 && (
-              <div className="keyfeatures">
-                <h4>Key Features</h4>
-                <ul>
-                  {Object.entries(chosenProduct.productSpecs).map(
-                    ([key, value]) => (
-                      <li key={key}>
-                        <b>{key}:</b> {String(value)}
-                      </li>
-                    ),
-                  )}
-                </ul>
-              </div>
-            )}
-
-          <Stack direction="row" className="pdp-actions">
-            <button className="btn-addcart">Add to Cart</button>
+        <Stack direction="row" spacing={4} className="product-main">
+          <Stack className="chosen-product-image">
+            {isNew && <Box className="badge-new">NEW</Box>}
+            <img
+              src={imagePath}
+              alt={chosenProduct.productName}
+              className="chosen-image"
+            />
           </Stack>
-        </div>
-      </div>
-    </Container>
+
+          <Stack className="chosen-product-info">
+            <Box className="info-box">
+              <Typography className="pdp-eyebrow">
+                {chosenProduct.productBrand}
+              </Typography>
+              <strong className="product-name">
+                {chosenProduct.productName}
+              </strong>
+
+              <div className="product-price">
+                <span>$</span>
+                <span>{chosenProduct.productPrice.toLocaleString()}</span>
+              </div>
+
+              {chosenProduct.productSpecs &&
+                Object.keys(chosenProduct.productSpecs).length > 0 && (
+                  <Box className="keyfeatures">
+                    <h4>Key Features</h4>
+                    <ul>
+                      {Object.entries(chosenProduct.productSpecs).map(
+                        ([key, value]) => (
+                          <li key={key}>
+                            <b>{key}:</b> {String(value)}
+                          </li>
+                        ),
+                      )}
+                    </ul>
+                  </Box>
+                )}
+
+              <div className="button-box">
+                <Button
+                  variant="contained"
+                  startIcon={<ShoppingCartIcon />}
+                  onClick={addToCartHandler}
+                >
+                  Add To Basket
+                </Button>
+              </div>
+            </Box>
+          </Stack>
+        </Stack>
+      </Container>
+    </div>
   )
 }

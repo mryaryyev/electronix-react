@@ -1,5 +1,5 @@
-import { useEffect, useState, ChangeEvent } from "react"
-import { useParams, useSearchParams } from "react-router-dom"
+import { useEffect, useRef, useState, ChangeEvent } from "react"
+import { NavLink, useParams, useSearchParams } from "react-router-dom"
 import { Container, InputBase, Slider, Stack, Box } from "@mui/material"
 import { Search as SearchIcon } from "@mui/icons-material"
 import Pagination from "@mui/material/Pagination"
@@ -15,11 +15,8 @@ import { setProducts } from "./slice"
 import { retrieveProducts } from "./selector"
 import { Product, ProductInquiry } from "../../../libs/types/product"
 import { ProductBrand, ProductCategory } from "../../../libs/enums/product.enum"
+import { formatBrandOrCategory } from "../../../libs/utils/product.utils"
 import "../../../css/productsPage.css"
-
-function formatBrandOrCategory(value: string): string {
-  return value.charAt(0) + value.slice(1).toLowerCase()
-}
 
 /** REDUX SLICE & SELECTOR */
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -52,12 +49,15 @@ export default function ProductsPage() {
   const [searchText, setSearchText] = useState(searchFromUrl)
   const [availableBrands, setAvailableBrands] = useState<string[]>([])
 
+  const isFirstRender = useRef(true)
+
   const pageTitle = brand
     ? formatBrandOrCategory(brand)
     : category
       ? formatBrandOrCategory(category)
       : "All Products"
 
+  // asıl veri çekme — productSearch her değiştiğinde
   useEffect(() => {
     const productService = new ProductService()
     productService
@@ -70,17 +70,26 @@ export default function ProductsPage() {
       })
   }, [productSearch])
 
-  // category/brand URL'den değişirse sayfayı sıfırla
+  // category/brand/arama URL'den değişirse senkron ol
+  // (ilk mount'ta çalışmasın diye ref ile atlatıyoruz, çünkü başlangıç state'i zaten doğru kuruldu)
   useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false
+      return
+    }
+
+    const urlSearch = searchParams.get("search") || ""
+    setSearchText(urlSearch)
     setProductSearch(prev => ({
       ...prev,
       page: 1,
+      search: urlSearch,
       productBrand: brand ? (brand.toUpperCase() as ProductBrand) : undefined,
       productCategory: category
         ? (category.toUpperCase() as ProductCategory)
         : undefined,
     }))
-  }, [category, brand])
+  }, [category, brand, searchParams])
 
   // kategori sayfasındaysa, o kategoride gerçekten satılan markaları backend'den öğren
   useEffect(() => {
@@ -145,7 +154,7 @@ export default function ProductsPage() {
   return (
     <Container className="category-page">
       <div className="breadcrumb">
-        Home &gt; <b>{pageTitle}</b>
+        <NavLink to="/">Home</NavLink> &gt; <b>{pageTitle}</b>
       </div>
       <h1 className="page-title">{pageTitle}</h1>
 
