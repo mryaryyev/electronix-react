@@ -12,34 +12,61 @@ import {
 import {
   Search as SearchIcon,
   PersonOutlined as PersonOutlineIcon,
-  ShoppingCartOutlined as CartIcon,
   Logout as LogoutIcon,
   BoltOutlined as BoltIcon,
 } from "@mui/icons-material"
-import { NavLink, useNavigate } from "react-router-dom"
+import {
+  NavLink,
+  useNavigate,
+  useLocation,
+  useSearchParams,
+} from "react-router-dom"
 import { categoryNavItems } from "../mock/navbar.mock"
+import { useGlobals } from "../../hooks/useGlobals"
+import { serverApi } from "../../../libs/config"
+import Basket from "./Basket"
 import "../../../css/navbar.css"
 
-const MOCK_MEMBER = {
-  memberNick: "Electronix",
-  memberImage: undefined as string | undefined,
+interface NavbarProps {
+  setSignupOpen: (isOpen: boolean) => void
+  setLoginOpen: (isOpen: boolean) => void
+  handleLogoutClick: (e: React.MouseEvent<HTMLElement>) => void
+  anchorEl: HTMLElement | null
+  handleCloseLogout: () => void
+  handleLogoutRequest: () => void
 }
 
-const CART_ITEM_COUNT = 1
+export default function Navbar(props: NavbarProps) {
+  const {
+    setLoginOpen,
+    handleLogoutClick,
+    anchorEl,
+    handleCloseLogout,
+    handleLogoutRequest,
+  } = props
 
-export default function Navbar() {
   const navigate = useNavigate()
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const location = useLocation()
+  const [searchParams] = useSearchParams()
+  const { authMember } = useGlobals()
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null)
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const [searchText, setSearchText] = useState("")
 
-  const handleAvatarClick = (e: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(e.currentTarget)
+  useEffect(() => {
+    setSearchText(searchParams.get("search") || "")
+  }, [location.search])
+
+  const searchHandler = () => {
+    if (!searchText.trim()) return
+    navigate(`/products?search=${searchText.trim()}`)
   }
-  const handleMenuClose = () => setAnchorEl(null)
-  const handleLogout = () => {
-    setIsAuthenticated(false)
-    setAnchorEl(null)
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value
+    setSearchText(value)
+    if (value === "") {
+      navigate("/products")
+    }
   }
 
   const activeDropdown = categoryNavItems.find(
@@ -63,14 +90,22 @@ export default function Navbar() {
           sx={{ alignItems: "center", justifyContent: "space-between" }}
         >
           <NavLink to="/" className="logo">
-            <BoltIcon sx={{ fontSize: 24 }} />
+          <img src="/icons/MIT_logo.svg" alt="" />
             Electronix
           </NavLink>
 
           <Box className="search-bar">
-            <SearchIcon sx={{ color: "#888" }} />
+            <SearchIcon
+              sx={{ color: "#888", cursor: "pointer" }}
+              onClick={searchHandler}
+            />
             <InputBase
               placeholder="Search for Smartphones, Laptops, Tablets..."
+              value={searchText}
+              onChange={handleSearchChange}
+              onKeyDown={e => {
+                if (e.key === "Enter") searchHandler()
+              }}
               fullWidth
               sx={{ fontSize: 15, ml: 2 }}
             />
@@ -100,11 +135,9 @@ export default function Navbar() {
               </Box>
             </Stack>
 
-            <Badge badgeContent={CART_ITEM_COUNT} color="error">
-              <CartIcon className="icon-btn" sx={{ cursor: "pointer" }} />
-            </Badge>
+            <Basket />
 
-            {isAuthenticated && (
+            {authMember && (
               <NavLink to="/orders" className="orders-link">
                 My
                 <br />
@@ -112,23 +145,28 @@ export default function Navbar() {
               </NavLink>
             )}
 
-            {!isAuthenticated ? (
+            {!authMember ? (
               <PersonOutlineIcon
                 className="icon-btn"
-                onClick={() => setIsAuthenticated(true)}
+                onClick={() => {
+                  setLoginOpen(true)
+                }}
                 sx={{ cursor: "pointer" }}
               />
             ) : (
               <>
                 <Box
                   className="avatar-dot"
-                  onClick={handleAvatarClick}
+                  onClick={handleLogoutClick}
                   aria-haspopup="true"
                 >
-                  {MOCK_MEMBER.memberImage ? (
-                    <img src={MOCK_MEMBER.memberImage} alt="" />
+                  {authMember.memberImage ? (
+                    <img
+                      src={`${serverApi}/${authMember.memberImage}`}
+                      alt=""
+                    />
                   ) : (
-                    MOCK_MEMBER.memberNick
+                    authMember.memberNick
                       .split(" ")
                       .map(w => w[0])
                       .join("")
@@ -137,19 +175,19 @@ export default function Navbar() {
                 <Menu
                   anchorEl={anchorEl}
                   open={Boolean(anchorEl)}
-                  onClose={handleMenuClose}
+                  onClose={handleCloseLogout}
                   transformOrigin={{ horizontal: "right", vertical: "top" }}
                   anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                 >
                   <MenuItem
                     onClick={() => {
-                      handleMenuClose()
+                      handleCloseLogout()
                       navigate("/member-page")
                     }}
                   >
                     Profile
                   </MenuItem>
-                  <MenuItem onClick={handleLogout}>
+                  <MenuItem onClick={handleLogoutRequest}>
                     <ListItemIcon>
                       <LogoutIcon fontSize="small" />
                     </ListItemIcon>
@@ -164,7 +202,9 @@ export default function Navbar() {
 
       <div
         className="category-wrap"
-        onMouseLeave={() => setHoveredCategory(null)}
+        onMouseLeave={() => {
+          setHoveredCategory(null)
+        }}
       >
         <Container>
           <Stack direction="row" className="category-bar">
@@ -172,7 +212,9 @@ export default function Navbar() {
               <Box
                 key={item.label}
                 className="category-item"
-                onMouseEnter={() => setHoveredCategory(item.label)}
+                onMouseEnter={() => {
+                  setHoveredCategory(item.label)
+                }}
               >
                 <NavLink to={`/products/${item.category}`}>
                   {item.label}
@@ -206,7 +248,11 @@ export default function Navbar() {
 
                 <Stack direction="row" spacing={6} className="dropdown-items">
                   {displayedDropdown.subItems.map(sub => (
-                    <Box key={sub.label} className="dropdown-item">
+                    <NavLink
+                      key={sub.label}
+                      to={`/products/brand/${sub.brand}`}
+                      className="dropdown-item"
+                    >
                       <div className="thumb">
                         <div
                           className="thumb-inner"
@@ -214,7 +260,7 @@ export default function Navbar() {
                         />
                       </div>
                       <div className="label">{sub.label}</div>
-                    </Box>
+                    </NavLink>
                   ))}
                 </Stack>
               </>

@@ -1,21 +1,67 @@
+import { useState } from "react"
 import { Route, Routes, useLocation } from "react-router-dom"
 import "../css/app.css"
 import HomePage from "./screens/homePage"
 import ProductsPage from "./screens/productsPage"
+import ChosenProduct from "./screens/productsPage/ChosenProduct"
 import OrdersPage from "./screens/ordersPage"
 import UserPage from "./screens/userPage"
 import HelpPage from "./screens/helpPage"
 import Navbar from "./components/header/Navbar"
 import Footer from "./components/footer/Footer"
-import ChosenProduct from "./screens/productsPage/ChosenProduct"
+import ScrollToTop from "./components/ScrollToTop"
+import AuthenticationModal from "./components/auth"
+import { sweetErrorHandling, sweetTopSuccessAlert } from "../libs/sweetAlert"
+import { Messages } from "../libs/config"
+import MemberService from "./services/MemberService"
+import { useGlobals } from "./hooks/useGlobals"
 
 function App() {
   const location = useLocation()
-  console.log(location)
+  const { setAuthMember } = useGlobals()
+  const [signupOpen, setSignupOpen] = useState<boolean>(false)
+  const [loginOpen, setLoginOpen] = useState<boolean>(false)
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
+
+  /** HANDLERS */
+
+  const handleSignupClose = () => {
+    setSignupOpen(false)
+  }
+  const handleLoginClose = () => {
+    setLoginOpen(false)
+  }
+
+  const handleLogoutClick = (e: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(e.currentTarget)
+  }
+  const handleCloseLogout = () => {
+    setAnchorEl(null)
+  }
+  const handleLogoutRequest = async () => {
+    try {
+      const member = new MemberService()
+      await member.logout()
+
+      await sweetTopSuccessAlert("success", 700)
+      setAuthMember(null)
+    } catch (err) {
+      console.log(err)
+      sweetErrorHandling(err)
+    }
+  }
 
   return (
     <>
-      <Navbar />
+      <ScrollToTop />
+      <Navbar
+        setSignupOpen={setSignupOpen}
+        setLoginOpen={setLoginOpen}
+        anchorEl={anchorEl}
+        handleLogoutClick={handleLogoutClick}
+        handleCloseLogout={handleCloseLogout}
+        handleLogoutRequest={handleLogoutRequest}
+      />
       <Routes>
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/products/:category" element={<ProductsPage />} />
@@ -27,6 +73,15 @@ function App() {
         <Route path="/" element={<HomePage />} />
       </Routes>
       <Footer />
+
+      <AuthenticationModal
+        signupOpen={signupOpen}
+        loginOpen={loginOpen}
+        handleLoginClose={handleLoginClose}
+        handleSignupClose={handleSignupClose}
+        setSignupOpen={setSignupOpen}
+        setLoginOpen={setLoginOpen}
+      />
     </>
   )
 }

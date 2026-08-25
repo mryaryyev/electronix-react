@@ -15,11 +15,16 @@
   align-items: center;
   gap: 4px;
   font-weight: 800;
-  font-style: italic;
   font-size: 22px;
   color: #2c6b3f;
   text-decoration: none;
   margin-right: 20px;
+}
+
+.navbar .navbar-top .logo img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
 }
 
 .navbar .navbar-top .search-bar {
@@ -49,6 +54,24 @@
 
 .navbar .navbar-top .navbar-right .icon-btn {
   color: #14161a;
+}
+
+.navbar .navbar-top .navbar-right .hover-line {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.navbar .navbar-top .navbar-right .hover-line img {
+  width: 22px;
+  height: 22px;
+  filter: brightness(0) saturate(100%);
+  opacity: 0.9;
+  transition: opacity 0.15s ease;
+}
+
+.navbar .navbar-top .navbar-right .hover-line:hover img {
+  opacity: 1;
 }
 
 .navbar .navbar-top .navbar-right .orders-link {

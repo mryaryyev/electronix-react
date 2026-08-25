@@ -1,9 +1,9 @@
-import { ProductCategory } from "../../../libs/enums/product.enum"
+import { ProductBrand, ProductCategory } from "../../../libs/enums/product.enum"
 
 export interface CategoryNavItem {
   label: string
   category: ProductCategory
-  subItems: { label: string; image: string }[]
+  subItems: { label: string; brand: ProductBrand; image: string }[]
 }
 
 export const categoryNavItems: CategoryNavItem[] = [
@@ -11,47 +11,109 @@ export const categoryNavItems: CategoryNavItem[] = [
     label: "Smartphones",
     category: ProductCategory.SMARTPHONE,
     subItems: [
-      { label: "iPhone", image: "/img/smartphone.jpg" },
-      { label: "Samsung Galaxy", image: "/img/smartphone.jpg" },
-      { label: "Xiaomi", image: "/img/smartphone.jpg" },
+      {
+        label: "Apple",
+        brand: ProductBrand.APPLE,
+        image: "/img/smartphone.jpg",
+      },
+      {
+        label: "Samsung",
+        brand: ProductBrand.SAMSUNG,
+        image: "/img/smartphone.jpg",
+      },
+      {
+        label: "Xiaomi",
+        brand: ProductBrand.XIAOMI,
+        image: "/img/smartphone.jpg",
+      },
     ],
   },
   {
     label: "Laptops",
     category: ProductCategory.LAPTOP,
     subItems: [
-      { label: "Macbook", image: "/img/laptop.webp" },
-      { label: "Windows Laptops", image: "/img/laptop.webp" },
-      { label: "Gaming Laptops", image: "/img/laptop.webp" },
+      { label: "Apple", brand: ProductBrand.APPLE, image: "/img/laptop.webp" },
+      {
+        label: "Samsung",
+        brand: ProductBrand.SAMSUNG,
+        image: "/img/laptop.webp",
+      },
+      {
+        label: "Lenovo",
+        brand: ProductBrand.LENOVO,
+        image: "/img/laptop.webp",
+      },
+      { label: "Asus", brand: ProductBrand.ASUS, image: "/img/laptop.webp" },
     ],
   },
   {
     label: "Tablets",
     category: ProductCategory.TABLET,
     subItems: [
-      { label: "iPad", image: "/img/tablet.webp" },
-      { label: "Galaxy Tab", image: "/img/tablet.webp" },
+      { label: "Apple", brand: ProductBrand.APPLE, image: "/img/tablet.webp" },
+      {
+        label: "Samsung",
+        brand: ProductBrand.SAMSUNG,
+        image: "/img/tablet.webp",
+      },
+      {
+        label: "Xiaomi",
+        brand: ProductBrand.XIAOMI,
+        image: "/img/tablet.webp",
+      },
     ],
   },
   {
     label: "Smartwatch",
     category: ProductCategory.SMARTWATCH,
     subItems: [
-      { label: "Apple Watch", image: "/img/smartwatch.webp" },
-      { label: "Galaxy Watch", image: "/img/smartwatch.webp" },
+      {
+        label: "Apple",
+        brand: ProductBrand.APPLE,
+        image: "/img/smartwatch.webp",
+      },
+      {
+        label: "Samsung",
+        brand: ProductBrand.SAMSUNG,
+        image: "/img/smartwatch.webp",
+      },
+      {
+        label: "Xiaomi",
+        brand: ProductBrand.XIAOMI,
+        image: "/img/smartwatch.webp",
+      },
     ],
   },
   {
     label: "Cameras",
     category: ProductCategory.CAMERA,
-    subItems: [{ label: "Canon", image: "/img/camera.webp" }],
+    subItems: [
+      {
+        label: "Samsung",
+        brand: ProductBrand.SAMSUNG,
+        image: "/img/camera.webp",
+      },
+      {
+        label: "Huawei",
+        brand: ProductBrand.HUAWEI,
+        image: "/img/camera.webp",
+      },
+    ],
   },
   {
     label: "Accessories",
     category: ProductCategory.ACCESSORY,
     subItems: [
-      { label: "Adapters & Cables", image: "/img/accessory.jpg" },
-      { label: "Mouse & Keyboard", image: "/img/accessory.jpg" },
+      {
+        label: "Apple",
+        brand: ProductBrand.APPLE,
+        image: "/img/accessory.jpg",
+      },
+      {
+        label: "Samsung",
+        brand: ProductBrand.SAMSUNG,
+        image: "/img/accessory.jpg",
+      },
     ],
   },
 ]
