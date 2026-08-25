@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { Route, Routes, useLocation } from "react-router-dom"
-import "../css/app.css"
 import HomePage from "./screens/homePage"
 import ProductsPage from "./screens/productsPage"
 import ChosenProduct from "./screens/productsPage/ChosenProduct"
@@ -15,6 +14,7 @@ import { sweetErrorHandling, sweetTopSuccessAlert } from "../libs/sweetAlert"
 import { Messages } from "../libs/config"
 import MemberService from "./services/MemberService"
 import { useGlobals } from "./hooks/useGlobals"
+import "../css/app.css"
 
 function App() {
   const location = useLocation()
@@ -66,7 +66,7 @@ function App() {
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/products/:category" element={<ProductsPage />} />
         <Route path="/products/brand/:brand" element={<ProductsPage />} />
-        <Route path="/product/:id" element={<ChosenProduct />} />
+        <Route path="/product/:productId" element={<ChosenProduct />} />
         <Route path="/orders" element={<OrdersPage />} />
         <Route path="/member-page" element={<UserPage />} />
         <Route path="/help" element={<HelpPage />} />

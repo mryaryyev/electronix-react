@@ -12,6 +12,7 @@ import { Messages, serverApi } from "../../../libs/config"
 import { useGlobals } from "../../hooks/useGlobals.ts"
 import OrderService from "../../services/OrderService"
 import { sweetErrorHandling } from "../../../libs/sweetAlert"
+import "../../../css/basket.css"
 
 export default function Basket() {
   const { BASKET, authMember, setOrderBuilder } = useGlobals()
@@ -108,7 +109,7 @@ export default function Basket() {
             {cartItems.length === 0 ? (
               <div>Cart is empty!</div>
             ) : (
-              <Stack flexDirection={"row"}>
+              <Stack direction={"row"}>
                 <div>Cart Products:</div>
                 <DeleteForeverIcon
                   sx={{ ml: "5px", cursor: "pointer" }}
@@ -124,49 +125,49 @@ export default function Basket() {
               {cartItems.map((item: CartItem) => {
                 const imagePath = `${serverApi}/${item.image}`
                 return (
-                  <Box className={"basket-info-box"} key={item._id}>
+                  <Stack className={"basket-info-box"} key={item._id}>
+                    <img src={imagePath} className={"product-img"} alt="" />
+                    <span className={"product-name"}>{item.name}</span>
+                    <Box className={"product-price"}>
+                      ${item.price} x {item.quantity}
+                    </Box>
+
+                    <div className="col-2">
+                      <button onClick={() => onRemove(item)} className="remove">
+                        -
+                      </button>{" "}
+                      <button onClick={() => onAdd(item)} className="add">
+                        +
+                      </button>
+                    </div>
                     <div className={"cancel-btn"}>
                       <CancelIcon
                         color={"primary"}
                         onClick={() => onDelete(item)}
                       />
                     </div>
-                    <img src={imagePath} className={"product-img"} alt="" />
-                    <span className={"product-name"}>{item.name}</span>
-                    <p className={"product-price"}>
-                      ${item.price} x {item.quantity}
-                    </p>
-                    <Box sx={{ minWidth: 120 }}>
-                      <div className="col-2">
-                        <button
-                          onClick={() => onRemove(item)}
-                          className="remove"
-                        >
-                          -
-                        </button>{" "}
-                        <button onClick={() => onAdd(item)} className="add">
-                          +
-                        </button>
-                      </div>
-                    </Box>
-                  </Box>
+                  </Stack>
                 )
               })}
             </Box>
           </Box>
           {cartItems.length !== 0 ? (
-            <Box className={"basket-order"}>
-              <span className={"price"}>
-                Total: ${totalPrice} ({itemsPrice} + {deliveryCost})
-              </span>
+            <Stack className={"basket-order"}>
+              <Stack className="price-breakdown">
+                <span className="price-line">
+                  Items total: ${itemsPrice} / Delivery: ${deliveryCost}
+                </span>
+                <span className="price-total">Total: ${totalPrice}</span>
+              </Stack>
               <Button
                 onClick={proceedOrderHandler}
                 startIcon={<ShoppingCartIcon />}
                 variant={"contained"}
+                sx={{ color: "#fff" }}
               >
                 Order
               </Button>
-            </Box>
+            </Stack>
           ) : (
             ""
           )}
