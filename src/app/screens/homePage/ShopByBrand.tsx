@@ -4,12 +4,12 @@ import { ProductBrand } from "../../../libs/enums/product.enum"
 import "../../../css/home/shopByBrand.css"
 
 const BRAND_LOGOS: Record<ProductBrand, string> = {
-  [ProductBrand.APPLE]: "/icons/apple-logo.svg",
-  [ProductBrand.SAMSUNG]: "/icons/samsung-logo.svg",
-  [ProductBrand.LENOVO]: "/icons/lenovo-logo.svg",
-  [ProductBrand.ASUS]: "/icons/asus-logo.svg",
-  [ProductBrand.XIAOMI]: "/icons/xiaomi-logo.svg",
-  [ProductBrand.HUAWEI]: "/icons/huawei-logo.svg",
+  [ProductBrand.APPLE]: "/icons/brands/apple.svg",
+  [ProductBrand.SAMSUNG]: "/icons/brands/samsung.svg",
+  [ProductBrand.LENOVO]: "/icons/brands/lenovo.svg",
+  [ProductBrand.ASUS]: "/icons/brands/asus.svg",
+  [ProductBrand.XIAOMI]: "/icons/brands/xiaomi.svg",
+  [ProductBrand.HUAWEI]: "/icons/brands/huawei.svg",
 }
 
 export default function ShopByBrand() {

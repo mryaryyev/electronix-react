@@ -13,7 +13,7 @@ export const plans = [
     author: "Edward Colman",
     date: "2 days ago",
     location: "USA, Chicago",
-    img: "/img/events/new-arrivals.jpg",
+    img: "/img/events/new-arrivals.webp",
   },
   {
     title: "New Store Opening",
@@ -21,7 +21,7 @@ export const plans = [
     author: "Morgan News",
     date: "5 days ago",
     location: "USA, Florida",
-    img: "/img/events/new-branch.jpg",
+    img: "/img/events/new-branch.webp",
   },
   {
     title: "Follow Us on Social Media",

@@ -1,118 +1,115 @@
-import { ProductBrand, ProductCategory } from "../../../libs/enums/product.enum"
+import { ProductBrand, ProductCategory } from '../../../libs/enums/product.enum'
 
 export interface CategoryNavItem {
   label: string
   category: ProductCategory
-  subItems: { label: string; brand: ProductBrand; image: string }[]
+  subItems: { label: string; brand: ProductBrand; image: string; thumbSize?: string }[]
 }
 
 export const categoryNavItems: CategoryNavItem[] = [
   {
-    label: "Smartphones",
+    label: 'Smartphones',
     category: ProductCategory.SMARTPHONE,
     subItems: [
       {
-        label: "Apple",
+        label: 'Apple',
         brand: ProductBrand.APPLE,
-        image: "/img/smartphone.jpg",
+        image: '/img/phone/apple.jpg',
+        thumbSize: '130%',
       },
       {
-        label: "Samsung",
+        label: 'Samsung',
         brand: ProductBrand.SAMSUNG,
-        image: "/img/smartphone.jpg",
+        image: '/img/phone/samsung.jpg',
+        thumbSize: '90%',
       },
       {
-        label: "Xiaomi",
+        label: 'Xiaomi',
         brand: ProductBrand.XIAOMI,
-        image: "/img/smartphone.jpg",
+        image: '/img/phone/xiaomi.jpg',
+        thumbSize: '70%',
       },
     ],
   },
   {
-    label: "Laptops",
+    label: 'Laptops',
     category: ProductCategory.LAPTOP,
     subItems: [
-      { label: "Apple", brand: ProductBrand.APPLE, image: "/img/laptop.webp" },
+      { label: 'Apple', brand: ProductBrand.APPLE, image: '/img/laptop/macbook.webp', thumbSize: '90%' },
       {
-        label: "Samsung",
+        label: 'Samsung',
         brand: ProductBrand.SAMSUNG,
-        image: "/img/laptop.webp",
+        image: '/img/laptop/samsung.webp',
       },
       {
-        label: "Lenovo",
+        label: 'Lenovo',
         brand: ProductBrand.LENOVO,
-        image: "/img/laptop.webp",
+        image: '/img/laptop/lenovo.webp',
+        thumbSize: '90%',
       },
-      { label: "Asus", brand: ProductBrand.ASUS, image: "/img/laptop.webp" },
     ],
   },
   {
-    label: "Tablets",
+    label: 'Tablets',
     category: ProductCategory.TABLET,
     subItems: [
-      { label: "Apple", brand: ProductBrand.APPLE, image: "/img/tablet.webp" },
+      { label: 'Apple', brand: ProductBrand.APPLE, image: '/img/tablet/apple.jpg' },
       {
-        label: "Samsung",
+        label: 'Samsung',
         brand: ProductBrand.SAMSUNG,
-        image: "/img/tablet.webp",
-      },
-      {
-        label: "Xiaomi",
-        brand: ProductBrand.XIAOMI,
-        image: "/img/tablet.webp",
+        image: '/img/tablet/samsung.webp',
       },
     ],
   },
   {
-    label: "Smartwatch",
+    label: 'Smartwatch',
     category: ProductCategory.SMARTWATCH,
     subItems: [
       {
-        label: "Apple",
+        label: 'Apple',
         brand: ProductBrand.APPLE,
-        image: "/img/smartwatch.webp",
+        image: '/img/smartwatch/apple.jpeg',
       },
       {
-        label: "Samsung",
+        label: 'Samsung',
         brand: ProductBrand.SAMSUNG,
-        image: "/img/smartwatch.webp",
+        image: '/img/smartwatch/samsung.webp',
+        thumbSize: '75%',
       },
       {
-        label: "Xiaomi",
+        label: 'Xiaomi',
         brand: ProductBrand.XIAOMI,
-        image: "/img/smartwatch.webp",
+        image: '/img/smartwatch/xiaomi.webp',
       },
     ],
   },
   {
-    label: "Cameras",
+    label: 'Cameras',
     category: ProductCategory.CAMERA,
     subItems: [
       {
-        label: "Samsung",
+        label: 'Samsung',
         brand: ProductBrand.SAMSUNG,
-        image: "/img/camera.webp",
+        image: '/img/camera/samsung.webp',
+        thumbSize: '60%',
       },
       {
-        label: "Huawei",
+        label: 'Huawei',
         brand: ProductBrand.HUAWEI,
-        image: "/img/camera.webp",
+        image: '/img/camera/huawei.jpg',
+        thumbSize: '65%',
       },
     ],
   },
   {
-    label: "Accessories",
+    label: 'Accessories',
     category: ProductCategory.ACCESSORY,
     subItems: [
       {
-        label: "Apple",
+        label: 'Apple',
         brand: ProductBrand.APPLE,
-        image: "/img/accessory.jpg",
-      },
-      {
-        label: "Samsung",
-        brand: ProductBrand.SAMSUNG,
-        image: "/img/accessory.jpg",
+        image: '/img/accessory/apple.webp',
+        thumbSize: '90%',
       },
     ],
   },
