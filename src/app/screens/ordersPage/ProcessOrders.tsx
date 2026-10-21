@@ -65,9 +65,10 @@ export default function ProcessOrders(props: ProcessOrdersProps) {
             <Box key={order._id} className={"order-main-box"}>
               <Box className={"order-box-scroll"}>
                 {order?.orderItems?.map((item: OrderItem) => {
-                  const product: Product = order.productData.filter(
+                  const product = order.productData.find(
                     (ele: Product) => item.productId === ele._id,
-                  )[0]
+                  )
+                  if (!product) return null
                   const imagePath = `${serverApi}/${product.productImages[0]}`
                   return (
                     <Box key={item._id} className={"orders-name-price"}>
@@ -111,7 +112,7 @@ export default function ProcessOrders(props: ProcessOrdersProps) {
                   <p>${order.orderTotal}</p>
                 </Box>
                 <p className={"data-compl"}>
-                  {moment().format("YY-MM-DD HH:mm")}
+                  {moment(order.updatedAt).format("YY-MM-DD HH:mm")}
                 </p>
                 <Button
                   value={order._id}
@@ -126,8 +127,7 @@ export default function ProcessOrders(props: ProcessOrdersProps) {
           )
         })}
 
-        {!processOrders ||
-          (processOrders.length === 0 && (
+        {(!processOrders || processOrders.length === 0) && (
             <Box
               display={"flex"}
               flexDirection={"row"}
@@ -139,7 +139,7 @@ export default function ProcessOrders(props: ProcessOrdersProps) {
                 alt=""
               />
             </Box>
-          ))}
+          )}
       </Stack>
     </TabPanel>
   )

@@ -1,7 +1,7 @@
 .order-page {
   width: 100%;
   height: auto;
-  background: #f8f8ff;
+  background: #f8f9fa;
   display: flex;
 }
 
@@ -35,8 +35,8 @@
   align-items: center;
   background: #f8f8ff;
   box-shadow:
-    15px 14px 4px rgba(0, 0, 0, 0.25),
-    inset -1px 0px 16px 13px rgb(24 23 112 / 20%);
+    5px 5px 4px rgba(0, 0, 0, 0.25),
+    inset -1px 0px 5px 5px rgb(24 23 112 / 20%);
   border-radius: 16px;
   margin-bottom: 25px;
 }
@@ -86,7 +86,7 @@
 
 .order-page .order-info-box .order-user-name {
   margin-top: 10px;
-  font-family: "Commissioner";
+  font-family: 'Commissioner';
   font-style: normal;
   font-weight: 500;
   font-size: 28px;
@@ -95,7 +95,7 @@
 }
 
 .order-page .order-info-box .order-user-prof {
-  font-family: "Commissioner";
+  font-family: 'Commissioner';
   font-style: normal;
   font-weight: 500;
   font-size: 20px;
@@ -111,7 +111,7 @@
 
 .order-page .order-info-box .spec-address-txt {
   margin-left: 5px;
-  font-family: "DM Sans";
+  font-family: 'DM Sans';
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -126,7 +126,7 @@
   height: 40px;
   background: #f5f5f5;
   border-radius: 10px;
-  font-family: "Nunito";
+  font-family: 'Nunito';
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -143,7 +143,7 @@
   height: 40px;
   background: #f5f5f5;
   border-radius: 10px;
-  font-family: "Nunito";
+  font-family: 'Nunito';
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -161,7 +161,7 @@
   justify-content: space-between;
 }
 
-.order-page .order-info-box .css-wca78v-MuiButtonBase-root-MuiButton-root {
+.order-page .order-info-box .MuiButtonBase-root.MuiButton-root {
   min-width: 160px;
 }
 
@@ -179,12 +179,26 @@
   justify-content: space-between;
 }
 
-.order-page .css-1gsv261 {
-  width: 75%;
+.order-page .MuiTab-root {
+  font-weight: 600;
+  color: #76797d !important;
+  text-transform: none;
+  font-size: 15px;
 }
 
-.order-page .css-heg063-MuiTabs-flexContainer {
+.order-page .MuiTab-root.Mui-selected {
+  color: #14161a !important;
+}
+
+.order-page .MuiTabs-indicator {
+  background-color: #7fb28e !important;
+  height: 3px;
+}
+
+.order-page .MuiTabs-list {
   justify-content: space-between;
+  gap: 80px;
+  width: 100%;
 }
 
 .order-page .order-main-content {
@@ -192,7 +206,7 @@
   height: auto;
 }
 
-.order-page .css-19kzrtu {
+.order-page .MuiTabPanel-root {
   padding-top: 24px;
 }
 
@@ -202,9 +216,8 @@
   max-height: 285px;
   margin-bottom: 25px;
   background: #f8f8ff;
-  box-shadow:
-    -13px 16px 4px rgba(0, 0, 0, 0.25),
-    inset 0px -3px 20px 11px #18177033;
+  border: 1px solid #ccd1da;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.2);
   border-radius: 16px;
 }
 
@@ -221,18 +234,12 @@
   overflow-y: scroll;
 }
 
-.order-page
-  .order-main-content
-  .order-main-box
-  .order-box-scroll::-webkit-scrollbar {
+.order-page .order-main-content .order-main-box .order-box-scroll::-webkit-scrollbar {
   width: 7px;
 }
 
-.order-page
-  .order-main-content
-  .order-main-box
-  .order-box-scroll::-webkit-scrollbar-thumb {
-  background-color: #8989db;
+.order-page .order-main-content .order-main-box .order-box-scroll::-webkit-scrollbar-thumb {
+  background-color: #b1b1cd;
   border-radius: 5px;
 }
 
@@ -259,7 +266,7 @@
   width: 260px;
   height: 36px;
   margin-left: 20px;
-  font-family: "Commissioner";
+  font-family: 'Commissioner';
   font-style: normal;
   font-weight: 500;
   font-size: 22px;
@@ -279,7 +286,7 @@
 }
 
 .order-page .order-box-scroll .orders-name-price .price-box p {
-  font-family: "Poppins";
+  font-family: 'Poppins';
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -308,16 +315,12 @@
 }
 
 .order-page .order-main-content .total-price-box .pay-button {
-  background: #56b74d;
-  color: #f8f8ff;
   border-radius: 10px;
-  max-height: 40px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  max-height: 40px;
 }
 
 .order-page .order-main-content .total-price-box .verify-button {
-  background: #0288d1;
-  color: #f8f8ff;
   border-radius: 10px;
   box-shadow:
     0px 4px 4px rgba(0, 0, 0, 0.25),
@@ -336,7 +339,7 @@
 
 .order-page .total-price-box .box-total p {
   margin-left: 20px;
-  font-family: "Commissioner";
+  font-family: 'Commissioner';
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
@@ -345,7 +348,7 @@
 }
 
 .order-page .total-price-box .box-total .data-compl {
-  font-family: "Commissioner";
+  font-family: 'Commissioner';
   font-style: normal;
   font-weight: 500;
   font-size: 14px;

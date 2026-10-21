@@ -89,9 +89,10 @@ export default function PausedOrders(props: PausedOrdersProps) {
             <Box key={order._id} className={"order-main-box"}>
               <Box className={"order-box-scroll"}>
                 {order?.orderItems?.map((item: OrderItem) => {
-                  const product: Product = order.productData.filter(
+                  const product = order.productData.find(
                     (ele: Product) => item.productId === ele._id,
-                  )[0]
+                  )
+                  if (!product) return null
                   const imagePath = `${serverApi}/${product.productImages[0]}`
                   return (
                     <Box key={item._id} className={"orders-name-price"}>
@@ -146,6 +147,7 @@ export default function PausedOrders(props: PausedOrdersProps) {
                 <Button
                   value={order._id}
                   variant="contained"
+                  color="primary"
                   className={"pay-button"}
                   onClick={processOrderHandler}
                 >
@@ -156,8 +158,7 @@ export default function PausedOrders(props: PausedOrdersProps) {
           )
         })}
 
-        {!pausedOrders ||
-          (pausedOrders.length === 0 && (
+        {(!pausedOrders || pausedOrders.length === 0) && (
             <Box
               display={"flex"}
               flexDirection={"row"}
@@ -169,7 +170,7 @@ export default function PausedOrders(props: PausedOrdersProps) {
                 alt=""
               />
             </Box>
-          ))}
+          )}
       </Stack>
     </TabPanel>
   )

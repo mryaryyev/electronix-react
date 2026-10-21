@@ -25,9 +25,10 @@ export default function FinishedOrders() {
             <Box key={order._id} className={"order-main-box"}>
               <Box className={"order-box-scroll"}>
                 {order?.orderItems?.map((item: OrderItem) => {
-                  const product: Product = order.productData.filter(
+                  const product = order.productData.find(
                     (ele: Product) => item.productId === ele._id,
-                  )[0]
+                  )
+                  if (!product) return null
                   const imagePath = `${serverApi}/${product.productImages[0]}`
                   return (
                     <Box key={item._id} className={"orders-name-price"}>
@@ -75,8 +76,7 @@ export default function FinishedOrders() {
           )
         })}
 
-        {!finishedOrders ||
-          (finishedOrders.length === 0 && (
+        {(!finishedOrders || finishedOrders.length === 0) && (
             <Box
               display={"flex"}
               flexDirection={"row"}
@@ -88,7 +88,7 @@ export default function FinishedOrders() {
                 alt=""
               />
             </Box>
-          ))}
+          )}
       </Stack>
     </TabPanel>
   )
