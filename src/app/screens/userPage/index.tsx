@@ -1,57 +1,76 @@
-import { Box, Container, Stack } from "@mui/material";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import TelegramIcon from "@mui/icons-material/Telegram";
-import YouTubeIcon from "@mui/icons-material/YouTube";
-import { Settings } from "./Settings";
-import "../../../css/userPage.css";
+import { Box, Container, Stack } from '@mui/material'
+import FacebookIcon from '@mui/icons-material/Facebook'
+import InstagramIcon from '@mui/icons-material/Instagram'
+import TelegramIcon from '@mui/icons-material/Telegram'
+import YouTubeIcon from '@mui/icons-material/YouTube'
+import { Settings } from './Settings'
+import { useNavigate } from 'react-router-dom'
+import { useGlobals } from '../../hooks/useGlobals'
+import { serverApi } from '../../../libs/config'
+import { MemberType } from '../../../libs/enums/member.enum'
+import { useEffect } from 'react'
+import '../../../css/userPage.css'
 
 export default function UserPage() {
+  const navigate = useNavigate()
+  const { authMember } = useGlobals()
+
+  useEffect(() => {
+    if (!authMember) {
+      navigate('/')
+    }
+  }, [authMember, navigate])
+
+  if (!authMember) return null
+
   return (
-    <div className={"user-page"}>
+    <div className={'user-page'}>
       <Container>
-        <Stack className={"my-page-frame"}>
-          <Stack className={"my-page-left"}>
-            <Box display={"flex"} flexDirection={"column"}>
-              <Box className={"menu-name"}>Modify Member Details</Box>
-              <Box className={"menu-content"}>
+        <Stack className={'my-page-frame'}>
+          <Stack className={'my-page-left'}>
+            <Box display={'flex'} flexDirection={'column'}>
+              <Box className={'menu-name'}>Modify Member Details</Box>
+              <Box className={'menu-content'}>
                 <Settings />
               </Box>
             </Box>
           </Stack>
 
-          <Stack className={"my-page-right"}>
-            <Box className={"order-info-box"}>
-              <Box
-                display={"flex"}
-                flexDirection={"column"}
-                alignItems={"center"}
-              >
-                <div className={"order-user-img"}>
+          <Stack className={'my-page-right'}>
+            <Box className={'order-info-box'}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div className={'order-user-img'}>
                   <img
-                    src={"/icons/default-user.svg"}
-                    className={"order-user-avatar"}
+                    src={authMember?.memberImage ? `${serverApi}/${authMember.memberImage}` : '/icons/default-user.svg'}
+                    className={'order-user-avatar'}
                     alt=""
                   />
-                  <div className={"order-user-icon-box"}>
-                    <img src={"/icons/user-badge.svg"} alt="" />
+                  <div className={'order-user-icon-box'}>
+                    <img
+                      src={
+                        authMember.memberType === MemberType.STORE ? '/icons/MIT_logo.svg' : '/icons/user-badge.svg'
+                      }
+                      alt=""
+                    />
                   </div>
                 </div>
-                <span className={"order-user-name"}>Martin</span>
-                <span className={"order-user-prof"}>User</span>
-                <span className={"order-user-prof"}>No address</span>
+                <span className={'order-user-name'}>{authMember.memberNick}</span>
+                <span className={'order-user-prof'}>{authMember.memberType}</span>
+                <span className={'order-user-prof'}>
+                  {authMember.memberAddress ? authMember.memberAddress : 'no address'}
+                </span>
               </Box>
-              <Box className={"user-media-box"}>
+              <Box className={'user-media-box'}>
                 <FacebookIcon />
                 <InstagramIcon />
                 <TelegramIcon />
                 <YouTubeIcon />
               </Box>
-              <p className={"user-desc"}>No description</p>
+              <p className={'user-desc'}>{authMember.memberDesc ? authMember.memberDesc : 'no description'}</p>
             </Box>
           </Stack>
         </Stack>
       </Container>
     </div>
-  );
+  )
 }
