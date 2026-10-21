@@ -93,10 +93,10 @@ export default function Navbar(props: NavbarProps) {
 
           <Stack direction="row" sx={{ alignItems: 'center' }} spacing={4} className="navbar-right">
             <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
-              <Box className="help">
-                <div className="text">NEED HELP?</div>
+              <NavLink to="/help" className="help">
+                <div className="text">HELP CENTER</div>
                 <div className="num">010 9797 2777</div>
-              </Box>
+              </NavLink>
               <img src="/icons/KakaoTalk.webp" alt="KakaoTalk" width={28} height={28} />
             </Stack>
 

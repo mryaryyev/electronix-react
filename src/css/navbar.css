@@ -40,6 +40,11 @@
 .navbar .navbar-top .navbar-right .help {
   text-align: right;
   white-space: nowrap;
+  color: #14161a;
+  text-decoration: none;
+}
+.navbar .navbar-top .navbar-right .help:hover .num {
+  color: #2c6b3f;
 }
 
 .navbar .navbar-top .navbar-right .help .text {
@@ -50,6 +55,7 @@
 .navbar .navbar-top .navbar-right .help .num {
   font-size: 13px;
   font-weight: 700;
+  transition: color 0.15s ease;
 }
 
 .navbar .navbar-top .navbar-right .icon-btn {
@@ -74,23 +80,6 @@
   opacity: 1;
 }
 
-.navbar .navbar-top .navbar-right .help-link {
-  color: #14161a;
-  text-decoration: none;
-  font-size: 12.5px;
-  font-weight: 700;
-  line-height: 1.2;
-  text-align: center;
-  cursor: pointer;
-  transition: color 0.15s ease;
-  display: inline-block;
-  max-width: 40px;
-  white-space: normal;
-}
-
-.navbar .navbar-top .navbar-right .help-link:hover {
-  color: #2c6b3f;
-}
 
 .navbar .navbar-top .navbar-right .orders-link {
   color: #14161a;
