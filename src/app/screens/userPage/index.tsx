@@ -28,7 +28,7 @@ export default function UserPage() {
       <Container>
         <Stack className={'my-page-frame'}>
           <Stack className={'my-page-left'}>
-            <Box display={'flex'} flexDirection={'column'}>
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
               <Box className={'menu-name'}>Modify Member Details</Box>
               <Box className={'menu-content'}>
                 <Settings />

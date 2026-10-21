@@ -1,4 +1,3 @@
-import React from "react"
 import { Box, Stack } from "@mui/material"
 import Button from "@mui/material/Button"
 import TabPanel from "@mui/lab/TabPanel"
@@ -128,11 +127,7 @@ export default function ProcessOrders(props: ProcessOrdersProps) {
         })}
 
         {(!processOrders || processOrders.length === 0) && (
-            <Box
-              display={"flex"}
-              flexDirection={"row"}
-              justifyContent={"center"}
-            >
+            <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
               <img
                 src={"/icons/noimage-list.svg"}
                 style={{ width: 300, height: 300 }}

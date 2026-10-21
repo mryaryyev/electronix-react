@@ -35,6 +35,7 @@ export default function ChosenProduct() {
   const { onAdd } = BASKET
 
   useEffect(() => {
+    if (!productId) return
     const productService = new ProductService()
     productService
       .getProduct(productId)

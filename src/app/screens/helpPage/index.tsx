@@ -24,7 +24,7 @@ export default function HelpPage() {
   }, [searchParams])
 
   /** HANDLERS **/
-  const handleChange = (e: React.SyntheticEvent, newValue: string) => {
+  const handleChange = (_: React.SyntheticEvent, newValue: string) => {
     setValue(newValue)
   }
 
@@ -112,11 +112,7 @@ export default function HelpPage() {
                           placeholder={"Your message"}
                         ></textarea>
                       </div>
-                      <Box
-                        display={"flex"}
-                        justifyContent={"flex-end"}
-                        sx={{ mt: "30px" }}
-                      >
+                      <Box sx={{ display: "flex", justifyContent: "flex-end", mt: "30px" }}>
                         <Button
                           type={"submit"}
                           variant="contained"

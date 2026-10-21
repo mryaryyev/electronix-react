@@ -33,7 +33,6 @@ export default function HomePage() {
     setTrendingGadgets,
     setLatestGadgets,
     setLatestIphones,
-    setShopByBrand,
   } = actionDispatch(useDispatch())
   useEffect(() => {
     const product = new ProductService()

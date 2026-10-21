@@ -1,4 +1,3 @@
-import React from "react"
 import { Box, Stack } from "@mui/material"
 import TabPanel from "@mui/lab/TabPanel"
 import { useSelector } from "react-redux"
@@ -77,11 +76,7 @@ export default function FinishedOrders() {
         })}
 
         {(!finishedOrders || finishedOrders.length === 0) && (
-            <Box
-              display={"flex"}
-              flexDirection={"row"}
-              justifyContent={"center"}
-            >
+            <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
               <img
                 src={"/icons/noimage-list.svg"}
                 style={{ width: 300, height: 300 }}

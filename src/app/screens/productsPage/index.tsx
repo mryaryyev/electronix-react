@@ -179,7 +179,7 @@ export default function ProductsPage() {
         </Stack>
       )}
 
-      <Stack direction="row" spacing={2} alignItems="flex-start" className="toolbar-row">
+      <Stack direction="row" spacing={2} sx={{ alignItems: "flex-start" }} className="toolbar-row">
         <div className="filters">
           <div className="group">
             <div className="group-title">Price Range</div>
@@ -245,7 +245,7 @@ export default function ProductsPage() {
         )}
       </div>
 
-      <Stack direction="row" justifyContent="center" className="pagination">
+      <Stack direction="row" sx={{ justifyContent: "center" }} className="pagination">
         <Pagination
           count={products.length !== 0 ? productSearch.page + 1 : productSearch.page}
           page={productSearch.page}
@@ -253,7 +253,7 @@ export default function ProductsPage() {
           className="custom-pagination"
           renderItem={item => (
             <PaginationItem
-              components={{
+              slots={{
                 previous: ArrowBackIcon,
                 next: ArrowForwardIcon,
               }}

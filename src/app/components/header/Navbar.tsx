@@ -7,8 +7,6 @@ import { useGlobals } from '../../hooks/useGlobals'
 import { serverApi } from '../../../libs/config'
 import Basket from './Basket'
 import '../../../css/navbar.css'
-import { ProductBrand } from '../../../libs/enums/product.enum'
-import { T } from '../../../libs/types/common'
 
 interface NavbarProps {
   setSignupOpen: (isOpen: boolean) => void
@@ -56,12 +54,6 @@ export default function Navbar(props: NavbarProps) {
   }, [activeDropdown])
 
   const [menuPosition, setMenuPosition] = useState<{ top: number; left: number } | null>(null)
-
-  const handleAvatarClick = (e: React.MouseEvent<HTMLElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect()
-    setMenuPosition({ top: rect.bottom + 8, left: rect.right })
-    handleLogoutClick(e)
-  }
 
   return (
     <div className="navbar">

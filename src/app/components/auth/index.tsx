@@ -1,6 +1,5 @@
 import { useState } from "react"
 import Modal from "@mui/material/Modal"
-import Backdrop from "@mui/material/Backdrop"
 import Fade from "@mui/material/Fade"
 import { Fab, Stack, TextField, Typography } from "@mui/material"
 import LoginIcon from "@mui/icons-material/Login"
@@ -117,8 +116,6 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
         open={signupOpen}
         onClose={handleSignupClose}
         closeAfterTransition
-        // slots={{ backdrop: Backdrop }}
-        // slotProps={{ backdrop: { timeout: 500 } }}
       >
         <Fade in={signupOpen}>
           <Stack
@@ -197,8 +194,6 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
         open={loginOpen}
         onClose={handleLoginClose}
         closeAfterTransition
-        // slots={{ backdrop: Backdrop }}
-        // slotProps={{ backdrop: { timeout: 500 } }}
       >
         <Fade in={loginOpen}>
           <Stack
