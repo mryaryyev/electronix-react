@@ -1,23 +1,22 @@
-import { useState } from "react"
-import { Route, Routes, useLocation } from "react-router-dom"
-import HomePage from "./screens/homePage"
-import ProductsPage from "./screens/productsPage"
-import ChosenProduct from "./screens/productsPage/ChosenProduct"
-import OrdersPage from "./screens/ordersPage"
-import UserPage from "./screens/userPage"
-import HelpPage from "./screens/helpPage"
-import Navbar from "./components/header/Navbar"
-import Footer from "./components/footer/Footer"
-import ScrollToTop from "./components/ScrollToTop"
-import AuthenticationModal from "./components/auth"
-import { sweetErrorHandling, sweetTopSuccessAlert } from "../libs/sweetAlert"
-import { Messages } from "../libs/config"
-import MemberService from "./services/MemberService"
-import { useGlobals } from "./hooks/useGlobals"
-import "../css/app.css"
+import { useState } from 'react'
+import { Route, Routes } from 'react-router-dom'
+import HomePage from './screens/homePage'
+import ProductsPage from './screens/productsPage'
+import ChosenProduct from './screens/productsPage/ChosenProduct'
+import OrdersPage from './screens/ordersPage'
+import UserPage from './screens/userPage'
+import HelpPage from './screens/helpPage'
+import Navbar from './components/header/Navbar'
+import Footer from './components/footer/Footer'
+import AuthenticationModal from './components/auth'
+import { sweetErrorHandling, sweetTopSuccessAlert } from '../libs/sweetAlert'
+import { Messages } from '../libs/config'
+import MemberService from './services/MemberService'
+import { useGlobals } from './hooks/useGlobals'
+import ScrollToTop from './components/ScrollToTop'
+import '../css/app.css'
 
 function App() {
-  const location = useLocation()
   const { setAuthMember } = useGlobals()
   const [signupOpen, setSignupOpen] = useState<boolean>(false)
   const [loginOpen, setLoginOpen] = useState<boolean>(false)
@@ -43,11 +42,11 @@ function App() {
       const member = new MemberService()
       await member.logout()
 
-      await sweetTopSuccessAlert("success", 700)
+      await sweetTopSuccessAlert('success', 700)
       setAuthMember(null)
     } catch (err) {
       console.log(err)
-      sweetErrorHandling(err)
+      void sweetErrorHandling(Messages.error1)
     }
   }
 
