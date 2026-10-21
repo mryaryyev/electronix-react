@@ -95,7 +95,7 @@
   display: inline-block;
 }
 
-.footer-frame .footer-col-title::after {
+/* .footer-frame .footer-col-title::after {
   content: "";
   position: absolute;
   left: 0;
@@ -104,7 +104,7 @@
   height: 3px;
   border-radius: 2px;
   background: #6a5acd;
-}
+} */
 
 .footer-frame .footer-links {
   display: flex;
