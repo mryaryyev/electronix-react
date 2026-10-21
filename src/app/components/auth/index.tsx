@@ -117,8 +117,8 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
         open={signupOpen}
         onClose={handleSignupClose}
         closeAfterTransition
-        slots={{ backdrop: Backdrop }}
-        slotProps={{ backdrop: { timeout: 500 } }}
+        // slots={{ backdrop: Backdrop }}
+        // slotProps={{ backdrop: { timeout: 500 } }}
       >
         <Fade in={signupOpen}>
           <Stack
@@ -197,8 +197,8 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
         open={loginOpen}
         onClose={handleLoginClose}
         closeAfterTransition
-        slots={{ backdrop: Backdrop }}
-        slotProps={{ backdrop: { timeout: 500 } }}
+        // slots={{ backdrop: Backdrop }}
+        // slotProps={{ backdrop: { timeout: 500 } }}
       >
         <Fade in={loginOpen}>
           <Stack
