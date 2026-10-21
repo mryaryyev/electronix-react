@@ -26,6 +26,7 @@
 
 .chosen-product .chosen-product-image {
   position: relative;
+  display: flex;
   border: 1px solid #f0f0f0;
   border-radius: 18px;
   aspect-ratio: 4 / 3;
@@ -33,6 +34,7 @@
   justify-content: center;
   padding: 8px;
   flex: 1;
+  overflow: hidden;
 }
 
 .chosen-product .chosen-image {
@@ -115,7 +117,7 @@
 }
 
 .chosen-product .keyfeatures li::before {
-  content: "•";
+  content: '•';
   color: #2c6b3f;
   position: absolute;
   left: 0;

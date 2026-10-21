@@ -1,10 +1,10 @@
-import { Card, CardMedia, CardContent, Typography, Stack } from "@mui/material"
-import { NavLink } from "react-router-dom"
-import VisibilityIcon from "@mui/icons-material/Visibility"
-import { Product } from "../../../libs/types/product"
-import "../../../css/productCard.css"
-import { serverApi } from "../../../libs/config"
-import { isNewProduct } from "../../../libs/utils/product.utils"
+import { Card, CardMedia, CardContent, Typography, Stack } from '@mui/material'
+import { NavLink } from 'react-router-dom'
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import { Product } from '../../../libs/types/product'
+import '../../../css/productCard.css'
+import { serverApi } from '../../../libs/config'
+import { isNewProduct } from '../../../libs/utils/product.utils'
 
 interface ProductCardProps {
   product: Product
@@ -19,17 +19,17 @@ export default function ProductCard({ product }: ProductCardProps) {
       <Card className="card">
         <div className="thumb-wrap">
           {isNew && <div className="product-sale">NEW</div>}
-          <CardMedia component="img" image={imagePath} className="thumb-img" />
+          <CardMedia component="img" image={imagePath} className="thumb-img" sx={{ objectFit: 'contain' }} />
         </div>
 
         <CardContent className="product-detail">
           <Typography
             sx={{
               fontSize: 14,
-              color: "#6b7280",
+              color: '#6b7280',
               mb: 0.75,
-              textTransform: "lowercase",
-              "&::first-letter": { textTransform: "uppercase" },
+              textTransform: 'lowercase',
+              '&::first-letter': { textTransform: 'uppercase' },
             }}
           >
             {product.productBrand}
@@ -39,28 +39,23 @@ export default function ProductCard({ product }: ProductCardProps) {
             sx={{
               fontSize: 15,
               fontWeight: 600,
-              color: "#14161a",
+              color: '#14161a',
               mb: 0.5,
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
             }}
           >
             {product.productName}
           </Typography>
 
-          <Stack
-            direction="row"
-            sx={{ alignItems: "center", justifyContent: "space-between" }}
-          >
-            <Typography
-              sx={{ fontSize: 15, fontWeight: 500, color: "#8b8f98" }}
-            >
+          <Stack direction="row" sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
+            <Typography sx={{ fontSize: 15, fontWeight: 500, color: '#8b8f98' }}>
               <span
                 style={{
                   fontSize: 14,
                   fontWeight: 600,
-                  color: "#8b8f98",
+                  color: '#8b8f98',
                   marginRight: 2,
                 }}
               >
@@ -69,13 +64,8 @@ export default function ProductCard({ product }: ProductCardProps) {
               {product.productPrice.toLocaleString()}
             </Typography>
 
-            <Stack
-              direction="row"
-              sx={{ alignItems: "center", gap: 0.5, color: "#8b8f98" }}
-            >
-              <Typography sx={{ fontSize: 13 }}>
-                {product.productViews}
-              </Typography>
+            <Stack direction="row" sx={{ alignItems: 'center', gap: 0.5, color: '#8b8f98' }}>
+              <Typography sx={{ fontSize: 13 }}>{product.productViews}</Typography>
               <VisibilityIcon sx={{ fontSize: 16 }} />
             </Stack>
           </Stack>
