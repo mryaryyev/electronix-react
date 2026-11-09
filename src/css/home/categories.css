@@ -10,7 +10,7 @@
   min-width: 180px;
   height: 180px;
   border-radius: 20px;
-  background-color: #f2f2f4;
+  background-color: #ffffff;
   display: flex;
   align-items: flex-end;
   padding: 14px;
@@ -21,9 +21,10 @@
 
 .tile-inner {
   position: absolute;
-  inset: 0;
-  background-size: cover;
+  inset: 0 0 24px; /* leave room for the label */
+  background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
   transition: transform 0.5s ease; /* iç katman: zoom animasyonu */
 }
 

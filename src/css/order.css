@@ -258,7 +258,10 @@
   width: 50px;
   height: 47px;
   border-radius: 29px;
-  background-size: cover;
+  background-color: #ffffff;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .order-page .order-box-scroll .orders-name-price .title-dish {

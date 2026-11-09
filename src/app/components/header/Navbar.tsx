@@ -204,13 +204,7 @@ export default function Navbar(props: NavbarProps) {
                       className="dropdown-item"
                     >
                       <div className="thumb">
-                        <div
-                          className="thumb-inner"
-                          style={{
-                            backgroundImage: `url(${sub.image})`,
-                            backgroundSize: sub.thumbSize ?? 'contain',
-                          }}
-                        />
+                        <div className="thumb-inner" style={{ backgroundImage: `url(${sub.image})` }} />
                       </div>
                       <div className="label">{sub.label}</div>
                     </NavLink>
